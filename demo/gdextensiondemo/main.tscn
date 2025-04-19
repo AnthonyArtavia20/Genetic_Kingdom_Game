@@ -6,3 +6,26 @@
 script = ExtResource("1_ig7tw")
 
 [node name="Pathfinder" type="Pathfinder" parent="."]
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
+
+[node name="GroundLayer(TileMapLayer)" type="TileMapLayer" parent="TileMap"]
+
+[node name="ObstacleLayer(TileMapLayer)" type="TileMapLayer" parent="TileMap"]
+
+[node name="EnemyContainer (Node2D)" type="Node2D" parent="."]
+
+[node name="UI (CanvasLayer)" type="CanvasLayer" parent="."]
+
+[node name="ButtonStart (Button)" type="Button" parent="UI (CanvasLayer)"]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="LabelPath (Label)" type="Label" parent="UI (CanvasLayer)"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="MarkerStart (Marker2D)" type="Marker2D" parent="."]
+
+[node name="MarkerEnd (Marker2D)" type="Marker2D" parent="."]
