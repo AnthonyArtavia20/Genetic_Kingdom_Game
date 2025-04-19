@@ -1,0 +1,32 @@
+import os
+
+godot_cpp_path = "../godot-cpp"
+target_name = "libgdexample"
+
+env = Environment()
+
+# Configurar flags
+env.Append(CPPPATH=[
+    godot_cpp_path,
+    os.path.join(godot_cpp_path, "include"),
+    os.path.join(godot_cpp_path, "include", "core"),
+    os.path.join(godot_cpp_path, "include", "gen"),
+    os.path.join(godot_cpp_path, "gen", "include"),
+    os.path.join(godot_cpp_path, "gen", "include", "godot_cpp"),
+    os.path.join(godot_cpp_path, "gen", "include", "godot_cpp", "classes"),
+    os.path.join(godot_cpp_path, "gen", "include", "godot_cpp", "variant"),
+    os.path.join(godot_cpp_path, "gdextension"),
+])
+
+env.Append(CCFLAGS=["-std=c++17", "-g", "-O2", "-fPIC"])
+env.Append(LINKFLAGS=["-shared", "-static-libgcc"])
+
+# Añadir librería estática generada por godot-cpp (sin renombrar)
+godot_cpp_lib = os.path.join(godot_cpp_path, "bin", "libgodot-cpp.linux.template_debug.x86_64.a")
+env.Append(LIBS=[godot_cpp_lib])
+
+# Archivos fuente
+sources = ["gdexample.cpp", "register_types.cpp"]
+
+# Build target
+env.SharedLibrary(target=target_name, source=sources)
