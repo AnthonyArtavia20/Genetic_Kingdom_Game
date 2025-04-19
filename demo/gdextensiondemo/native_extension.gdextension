@@ -3,4 +3,4 @@ entry_symbol = "initialize_example_module"
 compatibility_minimum = 4.1
 
 [libraries]
-linux.debug = "../../gdextension/libgdexample.so"
+linux.debug = "res://bin/libgdexample.so"

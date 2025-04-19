@@ -24,6 +24,8 @@ env.Append(CXXFLAGS=['-std=c++17', '-g', '-O2', '-fPIC'])
 sources = [
     'gdexample.cpp',
     'register_types.cpp',
+    "pathfinder/pathfinder.cpp",
+    'pathfinder/astar_grid.cpp',
 ]
 
 target = 'libgdexample.so'

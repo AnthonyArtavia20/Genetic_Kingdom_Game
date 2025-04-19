@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://j5kai66swxvo"]
+
+[ext_resource type="Script" uid="uid://xi8yaqihtgfc" path="res://main.gd" id="1_ig7tw"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ig7tw")
+
+[node name="Pathfinder" type="Pathfinder" parent="."]
