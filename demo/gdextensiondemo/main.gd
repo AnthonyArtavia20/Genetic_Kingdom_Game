@@ -1,17 +1,29 @@
 extends Node2D
 
+@onready var camera = $Camera2D
+@onready var ground_layer = $TileMap/GroundLayer
+@onready var obstacle_layer = $TileMap/ObstacleLayer
+@onready var pathfinder = $Pathfinder
+
 func _ready():
-	print("Probando integración de Pathfinder en C++")
+	camera.make_current()
+	camera.zoom = Vector2(0.5, 0.5)
+	
+	print("Inicializando Pathfinder...")
 
-	var pathfinder = Pathfinder.new()
-	add_child(pathfinder)
+	# 1. Primero marcamos TODO lo caminable
+	for y in range(17):
+		for x in range(41):
+			var tile_pos = Vector2i(x, y)
+			var tile_id = ground_layer.get_cell_source_id(tile_pos)
+			if tile_id != -1:
+				pathfinder.set_obstacle(tile_pos, true)  # true = caminable
 
-	# Opcional: llamar métodos si están definidos y expuestos en tu clase C++
-	# por ejemplo, si tienes:
-	# func set_obstacle(Vector2i, bool)
-	pathfinder.set_obstacle(Vector2i(5, 5), false)
-	var ruta = pathfinder.get_path(Vector2i(0, 0), Vector2i(10, 10))
-	print(ruta)
-
-
-	print("Pathfinder añadido al árbol de nodos")
+	# 2. Luego marcamos TODO lo que es obstáculo (sobrescribe)
+	for y in range(17):
+		for x in range(41):
+			var tile_pos = Vector2i(x, y)
+			var tile_id = obstacle_layer.get_cell_source_id(tile_pos)
+			if tile_id != -1:
+				pathfinder.set_obstacle(tile_pos, false)  # false = no caminable
+				print("Marcado como obstáculo:", tile_pos)
