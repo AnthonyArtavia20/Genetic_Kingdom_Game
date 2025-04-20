@@ -1,10 +1,12 @@
 import os
+import shutil
 import platform
 
 env = Environment()
 
+# Ruta al godot-cpp
 godot_cpp_path = os.path.join('..', 'godot-cpp')
-godot_cpp_bin = os.path.join(godot_cpp_path, 'bin')
+
 env.Append(CPPPATH=[
     godot_cpp_path,
     os.path.join(godot_cpp_path, 'include'),
@@ -17,17 +19,36 @@ env.Append(CPPPATH=[
     os.path.join(godot_cpp_path, 'gdextension'),
 ])
 
-env.Append(LIBPATH=[godot_cpp_bin])
+env.Append(LIBPATH=[os.path.join(godot_cpp_path, 'bin')])
 env.Append(LIBS=['godot-cpp'])
 env.Append(CXXFLAGS=['-std=c++17', '-g', '-O2', '-fPIC'])
 
+# Archivos fuente
 sources = [
     'gdexample.cpp',
     'register_types.cpp',
-    "pathfinder/pathfinder.cpp",
+    'pathfinder/pathfinder.cpp',
     'pathfinder/astar_grid.cpp',
 ]
 
-target = 'libgdexample.so'
+# Nombre base sin extensión (SCons la agregará)
+target = 'libgdexample'
 
-env.SharedLibrary(target=target.replace('.so', ''), source=sources)
+# Compila la librería compartida en el directorio actual
+so_file = env.SharedLibrary(target=target, source=sources)
+
+# Ruta final donde queremos colocarla
+output_dir = os.path.join('..', 'demo', 'gdextensiondemo', 'bin')
+output_path = os.path.join(output_dir, f'{target}.so')
+
+# Acción personalizada: mover la librería después de compilar
+def move_lib_to_bin(source, target, env):
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    if os.path.exists(output_path):
+        os.remove(output_path)
+    shutil.copy(str(target[0]), output_path)
+    print(f'📦 Librería copiada a {output_path}, pues el proyecto necesita esa librería en bin/')
+
+# Asociar la acción personalizada a la compilación
+env.AddPostAction(so_file, move_lib_to_bin)
