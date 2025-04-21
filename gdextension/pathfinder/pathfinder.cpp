@@ -13,7 +13,7 @@ void Pathfinder::_bind_methods() {
 
 void Pathfinder::_ready() {
     astar = std::make_unique<AStarGrid>(40, 20);
-    astar->set_walkable(Vector2i(5, 5), false); // ejemplo
+    //astar->set_walkable(Vector2i(5, 5), false); // ejemplo
 }
 
 PackedVector2Array Pathfinder::get_path(Vector2i start, Vector2i end) const {

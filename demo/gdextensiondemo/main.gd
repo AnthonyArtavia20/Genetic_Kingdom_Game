@@ -18,6 +18,7 @@ func _ready():
 			var tile_id = ground_layer.get_cell_source_id(tile_pos)
 			if tile_id != -1:
 				pathfinder.set_obstacle(tile_pos, true)  # true = caminable
+				print("Marcado como caminable:", tile_pos)
 
 	# 2. Luego marcamos TODO lo que es obstáculo (sobrescribe)
 	for y in range(17):
