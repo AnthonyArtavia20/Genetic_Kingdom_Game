@@ -7,7 +7,7 @@ using namespace godot;
 void initialize_types(ModuleInitializationLevel p_level) {
     if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE)
         return;
-
+    
     ClassDB::register_class<GDExample>();
     ClassDB::register_class<Pathfinder>();
 }

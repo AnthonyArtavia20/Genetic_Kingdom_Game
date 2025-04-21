@@ -4,10 +4,13 @@ extends Node2D
 @onready var ground_layer = $TileMap/GroundLayer
 @onready var obstacle_layer = $TileMap/ObstacleLayer
 @onready var pathfinder = $Pathfinder
+@onready var enemy_scene = preload("res://Enemigos/Ogro.tscn")
+@onready var spawn_timer = $SpawnTimer
 
 func _ready():
 	camera.make_current()
 	camera.zoom = Vector2(0.5, 0.5)
+	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 	
 	print("Inicializando Pathfinder...")
 
@@ -28,3 +31,7 @@ func _ready():
 			if tile_id != -1:
 				pathfinder.set_obstacle(tile_pos, false)  # false = no caminable
 				print("Marcado como obstáculo:", tile_pos)
+	
+func _on_spawn_timer_timeout():
+	var enemy = enemy_scene.instantiate()
+	add_child(enemy)

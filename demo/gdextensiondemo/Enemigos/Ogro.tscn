@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://c5pus2fprlaxe"]
+
+[ext_resource type="Script" uid="uid://b7x6j78ix33be" path="res://Enemigos/ogro.gd" id="1_0tej1"]
+[ext_resource type="Texture2D" uid="uid://laj1ifgkvw8v" path="res://sprites/Enemies/Ogre/OgreSpriteSheet(91x51).png" id="2_jyl5r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8ng4"]
+atlas = ExtResource("2_jyl5r")
+region = Rect2(0, 0, 91, 51)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lftn0"]
+atlas = ExtResource("2_jyl5r")
+region = Rect2(91, 0, 91, 51)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dli4o"]
+atlas = ExtResource("2_jyl5r")
+region = Rect2(182, 0, 91, 51)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dbhh"]
+atlas = ExtResource("2_jyl5r")
+region = Rect2(273, 0, 91, 51)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tocfu"]
+atlas = ExtResource("2_jyl5r")
+region = Rect2(364, 0, 91, 51)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3f28"]
+atlas = ExtResource("2_jyl5r")
+region = Rect2(455, 0, 91, 51)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c3oj2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8ng4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lftn0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dli4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dbhh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tocfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3f28")
+}],
+"loop": true,
+"name": &"CaminarDerecha",
+"speed": 5.0
+}]
+
+[node name="Ogro" type="CharacterBody2D"]
+script = ExtResource("1_0tej1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_c3oj2")
+animation = &"CaminarDerecha"
+frame_progress = 0.550801
