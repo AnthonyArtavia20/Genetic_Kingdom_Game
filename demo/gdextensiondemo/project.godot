@@ -21,7 +21,12 @@ window/size/viewport_width=3456
 window/size/viewport_height=1944
 window/stretch/aspect="expand"
 
+[dotnet]
+
+project/assembly_name="GDExtensionDemo"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/light_projectors/filter=0

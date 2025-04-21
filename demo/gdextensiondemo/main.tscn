@@ -70,3 +70,6 @@ offset_bottom = 23.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(1200, 500)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
