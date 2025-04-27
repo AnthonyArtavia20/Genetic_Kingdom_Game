@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://j5kai66swxvo"]
+[gd_scene load_steps=8 format=4 uid="uid://j5kai66swxvo"]
 
 [ext_resource type="Script" uid="uid://xi8yaqihtgfc" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://cp0flvvjj0aal" path="res://sprites/SpriteMap.png" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://p2iuw1siewog" path="res://sprites/Towers/Archer_Tower/Archer_Tower3.png" id="3_h2yge"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
 texture = ExtResource("2_0xm2m")
@@ -88,23 +89,32 @@ layout_mode = 2
 text = "Porcentaje de mutaciones: "
 
 [node name="PanelTowers (PanelContainer)" type="PanelContainer" parent="UI (CanvasLayer)"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 2688.0
+offset_right = 3392.0
+offset_bottom = 1152.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)"]
 layout_mode = 2
 
 [node name="Label (Torres Disponibles)" type="Label" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer"]
 layout_mode = 2
+text = "Comprar Torres
+
+
+
+"
 
 [node name="TorreContainer1 (VBoxContainer)" type="VBoxContainer" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer"]
 layout_mode = 2
 
 [node name="TextureRect (Arquero)" type="TextureRect" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
 layout_mode = 2
+texture = ExtResource("3_h2yge")
+stretch_mode = 3
 
 [node name="Label (Arquero - precio)" type="Label" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
 layout_mode = 2
+text = "Torre Arqueros - 150 Oro"
 
 [node name="Button (Comprar Arquero)" type="Button" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
 layout_mode = 2
