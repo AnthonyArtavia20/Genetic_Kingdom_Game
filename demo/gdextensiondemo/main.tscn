@@ -87,6 +87,52 @@ text = "Cantidad de niveles de las torres:"
 layout_mode = 2
 text = "Porcentaje de mutaciones: "
 
+[node name="PanelTowers (PanelContainer)" type="PanelContainer" parent="UI (CanvasLayer)"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)"]
+layout_mode = 2
+
+[node name="Label (Torres Disponibles)" type="Label" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+
+[node name="TorreContainer1 (VBoxContainer)" type="VBoxContainer" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect (Arquero)" type="TextureRect" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
+layout_mode = 2
+
+[node name="Label (Arquero - precio)" type="Label" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
+layout_mode = 2
+
+[node name="Button (Comprar Arquero)" type="Button" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
+layout_mode = 2
+
+[node name="TorreContainer2 (VBoxContainer)" type="VBoxContainer" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect (Mago)" type="TextureRect" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer2 (VBoxContainer)"]
+layout_mode = 2
+
+[node name="Label (Mago - precio)" type="Label" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer2 (VBoxContainer)"]
+layout_mode = 2
+
+[node name="Button (Mago - comprar)" type="Button" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer2 (VBoxContainer)"]
+layout_mode = 2
+
+[node name="TorreContainer3 (VBoxContainer)" type="VBoxContainer" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect (Artillero)" type="TextureRect" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer3 (VBoxContainer)"]
+layout_mode = 2
+
+[node name="label (Artillero - precio)" type="Label" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer3 (VBoxContainer)"]
+layout_mode = 2
+
+[node name="Button (Artillero - comprar)" type="Button" parent="UI (CanvasLayer)/PanelTowers (PanelContainer)/VBoxContainer/TorreContainer3 (VBoxContainer)"]
+layout_mode = 2
+
 [node name="SpawnTimer" type="Timer" parent="."]
 autostart = true
 
