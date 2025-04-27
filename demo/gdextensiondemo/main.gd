@@ -8,8 +8,7 @@ extends Node2D
 @onready var spawn_timer = $SpawnTimer
 
 func _ready():
-	camera.make_current()
-	camera.zoom = Vector2(0.5, 0.5)
+
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 	
 	print("Inicializando Pathfinder...")
