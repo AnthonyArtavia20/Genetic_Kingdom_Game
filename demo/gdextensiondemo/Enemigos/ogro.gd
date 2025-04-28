@@ -10,7 +10,9 @@ func _ready():
 	path = pathfinder.get_path(start, goal)
 	if path.size() > 0:
 		# Convierte de celdas (tilemap) a coordenadas del mundo:
-		position = get_parent().get_node("TileMap/GroundLayer").map_to_local(path[0])
+		var tilemap = get_parent().get_node("TileMap/GroundLayer")
+		# 👇 ¡Aquí el fix importante!
+		position = tilemap.to_global(tilemap.map_to_local(path[0]))
 
 func _process(delta):
 	if path_index >= path.size():
@@ -18,7 +20,7 @@ func _process(delta):
 		return
 
 	var tilemap = get_parent().get_node("TileMap/GroundLayer")
-	var target_world_pos = tilemap.map_to_local(path[path_index])
+	var target_world_pos = tilemap.to_global(tilemap.map_to_local(path[path_index]))
 	var direction = (target_world_pos - position).normalized()
 	position += direction * speed * delta
 

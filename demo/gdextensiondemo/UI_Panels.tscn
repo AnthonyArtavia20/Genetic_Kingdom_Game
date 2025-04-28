@@ -1,0 +1,129 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdv1kh8a3hdy7"]
+
+[ext_resource type="Texture2D" uid="uid://p2iuw1siewog" path="res://sprites/Towers/Archer_Tower/Archer_Tower3.png" id="1_j0qjj"]
+[ext_resource type="Texture2D" uid="uid://cehv1qpqobamg" path="res://sprites/others/buy_button.png" id="2_vsrhp"]
+[ext_resource type="Texture2D" uid="uid://cmjjb0nobvbld" path="res://sprites/Towers/Mage_Tower/Mage_Tower3.png" id="3_vsrhp"]
+[ext_resource type="Texture2D" uid="uid://dt3u3eet8ecac" path="res://sprites/Towers/Catapult_Tower/Tier3/Right_Catapult1.png" id="4_sf2pk"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="PanelTowers (PanelContainer)" type="PanelContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.842927
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelTowers (PanelContainer)"]
+layout_mode = 2
+
+[node name="Label (Torres Disponibles)" type="Label" parent="PanelTowers (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+text = "Comprar torres:"
+
+[node name="TorreContainer1 (VBoxContainer)" type="VBoxContainer" parent="PanelTowers (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect (Arquero)" type="TextureRect" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
+layout_mode = 2
+texture = ExtResource("1_j0qjj")
+stretch_mode = 5
+
+[node name="Label (Arquero - Precio)" type="Label" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
+layout_mode = 2
+text = "Torre Arquera - 150 Oro"
+horizontal_alignment = 1
+
+[node name="Button (Comprar)" type="Button" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
+layout_mode = 2
+icon = ExtResource("2_vsrhp")
+icon_alignment = 1
+
+[node name="TorreContainer2 (VBoxContainer)" type="VBoxContainer" parent="PanelTowers (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect (Mago)" type="TextureRect" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer2 (VBoxContainer)"]
+layout_mode = 2
+texture = ExtResource("3_vsrhp")
+stretch_mode = 5
+
+[node name="Label (Mago - precio)" type="Label" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer2 (VBoxContainer)"]
+layout_mode = 2
+text = "Torre de mago - 300 Oro"
+horizontal_alignment = 1
+
+[node name="Button (Comprar)" type="Button" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer2 (VBoxContainer)"]
+layout_mode = 2
+icon = ExtResource("2_vsrhp")
+icon_alignment = 1
+
+[node name="TorreContainer3 (VBoxContainer)" type="VBoxContainer" parent="PanelTowers (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect (Artillero)" type="TextureRect" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer3 (VBoxContainer)"]
+layout_mode = 2
+texture = ExtResource("4_sf2pk")
+stretch_mode = 5
+
+[node name="Label (Artillero - precio)" type="Label" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer3 (VBoxContainer)"]
+layout_mode = 2
+text = "Torre Artillera - 1000 Oro"
+horizontal_alignment = 1
+
+[node name="Button (Comprar)" type="Button" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer3 (VBoxContainer)"]
+layout_mode = 2
+icon = ExtResource("2_vsrhp")
+icon_alignment = 1
+
+[node name="PanelStats (PanelContainer)" type="PanelContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelStats (PanelContainer)"]
+layout_mode = 2
+
+[node name="Label (estadisticas)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+text = "Estadisticas generales de la partida:                   
+(Img de stats)
+
+"
+
+[node name="Label (Generaciones transcurridas)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+text = "Generaciones / Oleadas transcurridas:
+"
+
+[node name="Label (Enemigos eliminados)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+text = "Cantidad de enemigos eliminados:
+"
+
+[node name="Label (Fitness promedio)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+text = "Fitness promedio: 
+
+
+
+
+
+
+"
+
+[node name="Label (Cantidad de niveles torres)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+text = "Cantidades de niveles por torre:
+Nivel 1:
+
+NIvel 2:
+
+NIvel 3:
+
+"
+
+[node name="Label (Porcentaje mutaciones)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+layout_mode = 2
+text = "Porcentaje  de mutaciones: 0%"
