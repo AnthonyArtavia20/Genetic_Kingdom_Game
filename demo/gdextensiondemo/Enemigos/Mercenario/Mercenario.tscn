@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://dstq6wotx4ykm"]
+
+[ext_resource type="Texture2D" uid="uid://dc2xojovnv337" path="res://sprites/Enemies/Mercenary/MercenarySpriteSheet(44x44).png" id="1_8egb8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipl5y"]
+atlas = ExtResource("1_8egb8")
+region = Rect2(0, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6v2m"]
+atlas = ExtResource("1_8egb8")
+region = Rect2(44, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7nyu"]
+atlas = ExtResource("1_8egb8")
+region = Rect2(88, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5ol4"]
+atlas = ExtResource("1_8egb8")
+region = Rect2(132, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm4sf"]
+atlas = ExtResource("1_8egb8")
+region = Rect2(176, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pae4i"]
+atlas = ExtResource("1_8egb8")
+region = Rect2(220, 0, 44, 44)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r71hl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipl5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6v2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7nyu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5ol4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dm4sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pae4i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_r71hl")
+frame = 1
+frame_progress = 0.736015

@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://k7mv148cftjq"]
+
+[ext_resource type="Texture2D" uid="uid://bpqbnhqiy1ygq" path="res://sprites/Enemies/Harpy/HarpySpriteSheet(50x57).png" id="1_u77r2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u77r2"]
+atlas = ExtResource("1_u77r2")
+region = Rect2(0, 0, 57, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5l6k4"]
+atlas = ExtResource("1_u77r2")
+region = Rect2(57, 0, 57, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pv28x"]
+atlas = ExtResource("1_u77r2")
+region = Rect2(114, 0, 57, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yaesa"]
+atlas = ExtResource("1_u77r2")
+region = Rect2(171, 0, 57, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trvip"]
+atlas = ExtResource("1_u77r2")
+region = Rect2(228, 0, 57, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqr83"]
+atlas = ExtResource("1_u77r2")
+region = Rect2(285, 0, 57, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_glxyw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u77r2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5l6k4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pv28x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yaesa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trvip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqr83")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_glxyw")
+frame = 2
+frame_progress = 0.966469

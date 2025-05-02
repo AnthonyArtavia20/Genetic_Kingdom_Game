@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://c5pus2fprlaxe"]
 
-[ext_resource type="Script" uid="uid://b7x6j78ix33be" path="res://Enemigos/ogro.gd" id="1_0tej1"]
+[ext_resource type="Script" uid="uid://b7x6j78ix33be" path="res://Enemigos/Ogro/ogro.gd" id="1_0tej1"]
 [ext_resource type="Texture2D" uid="uid://laj1ifgkvw8v" path="res://sprites/Enemies/Ogre/OgreSpriteSheet(91x51).png" id="2_jyl5r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b8ng4"]

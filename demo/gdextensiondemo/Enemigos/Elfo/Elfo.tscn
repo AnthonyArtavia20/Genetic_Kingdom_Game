@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://r8suepklt4q1"]
+
+[ext_resource type="Texture2D" uid="uid://fg6otud8rt2u" path="res://sprites/Enemies/DarkElf/DarkElfSpriteSheet(37x37).png" id="1_51c7w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3we0"]
+atlas = ExtResource("1_51c7w")
+region = Rect2(0, 0, 37, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14xu4"]
+atlas = ExtResource("1_51c7w")
+region = Rect2(37, 0, 37, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mncgs"]
+atlas = ExtResource("1_51c7w")
+region = Rect2(74, 0, 37, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vavk"]
+atlas = ExtResource("1_51c7w")
+region = Rect2(111, 0, 37, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hnt4"]
+atlas = ExtResource("1_51c7w")
+region = Rect2(148, 0, 37, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nn8g"]
+atlas = ExtResource("1_51c7w")
+region = Rect2(185, 0, 37, 37)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lve56"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3we0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14xu4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mncgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vavk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hnt4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nn8g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_lve56")
