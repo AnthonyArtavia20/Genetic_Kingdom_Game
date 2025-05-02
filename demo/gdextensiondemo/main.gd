@@ -14,7 +14,7 @@ extends Node2D
 var current_wave = 0
 var enemies_to_spawn = []
 var enemies_alive = 0
-
+var wave_ended = false
 func _ready():
 
 	spawn_timer.timeout.connect(_on_SpawnTimer_timeout)
@@ -45,31 +45,27 @@ func _ready():
 
 func start_next_wave():
 	current_wave += 1
+	wave_ended = false
 	print("Inciando oleada %d" % current_wave)
 	
-	match current_wave:
-		1:
-			var ogros = []
-			for i in range(5 * current_wave):
-				ogros.append("ogro")
-			enemies_to_spawn = ogros
-		2:
-			var ogros = []
-			for i in range(10 * current_wave):
-				ogros.append("ogro")
-			var elfos = []
-			for i in range(5 * current_wave):
-				elfos.append("elfo")
-			enemies_to_spawn = ogros + elfos
-		_:
-			var ogros = []
-			for i in range(5 * current_wave):
-				ogros.append("ogro")
-			var elfos = []
-			for i in range(2 * current_wave):
-				elfos.append("elfo")
-			enemies_to_spawn = ogros + elfos
+	var ogros = []
+	var elfos = []
 	
+	if current_wave == 1:
+		for i in range(5 * current_wave):
+			ogros.append("ogro")
+	elif current_wave == 2:
+		#for i in range(10 * current_wave):
+			#ogros.append("ogro")
+		for i in range(5 * current_wave):
+			elfos.append("elfo")
+	elif current_wave == 3:
+		for i in range(5 * current_wave):
+			ogros.append("ogro")
+		for i in range(2 * current_wave):
+			elfos.append("elfo")
+	
+	enemies_to_spawn = ogros + elfos
 	enemies_alive = enemies_to_spawn.size()
 	spawn_timer.start()
 	
@@ -90,10 +86,17 @@ func _on_SpawnTimer_timeout():
 	if enemy:
 		enemy.position = ground_layer.map_to_local(Vector2i(0,0))
 		add_child(enemy)
+		enemy.connect("died", Callable(self, "_on_enemy_died"))
 		
 func _on_enemy_died():
+	if wave_ended:
+		return
+	
 	enemies_alive -= 1
-	if enemies_alive <= 0:
+	print("Enemigo muerto. Restantes:", enemies_alive)
+	
+	if enemies_alive <= 0 and not wave_ended:
+		wave_ended = true
 		print("Todos los enemigos derrotados.")
 		wave_timer.start(10)
 			
