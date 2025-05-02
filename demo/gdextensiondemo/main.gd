@@ -4,12 +4,22 @@ extends Node2D
 @onready var ground_layer = $TileMap/GroundLayer
 @onready var obstacle_layer = $TileMap/ObstacleLayer
 @onready var pathfinder = $Pathfinder
-@onready var enemy_scene = preload("res://Enemigos/Ogro/Ogro.tscn")
-@onready var spawn_timer = $SpawnTimer
 
+@onready var spawn_timer = $SpawnTimer
+@onready var wave_timer = $WaveDelayTimer
+
+@onready var ogro_scene = preload("res://Enemigos/Ogro/Ogro.tscn")
+@onready var elfo_scene = preload("res://Enemigos/Elfo/Elfo.tscn")
+
+var current_wave = 0
+var enemies_to_spawn = []
+var enemies_alive = 0
+var wave_ended = false
 func _ready():
 
-	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
+	spawn_timer.timeout.connect(_on_SpawnTimer_timeout)
+	wave_timer.timeout.connect(_on_WaveDelayTimer_timeout)
+	
 
 	print("Inicializando Pathfinder...")
 
@@ -30,7 +40,65 @@ func _ready():
 			if tile_id != -1:
 				pathfinder.set_obstacle(tile_pos, false)  # false = no caminable
 				print("Marcado como obstáculo:", tile_pos)
+				
+	start_next_wave()
 
-func _on_spawn_timer_timeout():
-	var enemy = enemy_scene.instantiate()
-	add_child(enemy)
+func start_next_wave():
+	current_wave += 1
+	wave_ended = false
+	print("Inciando oleada %d" % current_wave)
+	
+	var ogros = []
+	var elfos = []
+	
+	if current_wave == 1:
+		for i in range(5 * current_wave):
+			ogros.append("ogro")
+	elif current_wave == 2:
+		#for i in range(10 * current_wave):
+			#ogros.append("ogro")
+		for i in range(5 * current_wave):
+			elfos.append("elfo")
+	elif current_wave == 3:
+		for i in range(5 * current_wave):
+			ogros.append("ogro")
+		for i in range(2 * current_wave):
+			elfos.append("elfo")
+	
+	enemies_to_spawn = ogros + elfos
+	enemies_alive = enemies_to_spawn.size()
+	spawn_timer.start()
+	
+func _on_SpawnTimer_timeout():
+	if enemies_to_spawn.size() == 0:
+		spawn_timer.stop()
+		return
+		
+	var type = enemies_to_spawn.pop_front()
+	var enemy
+	
+	match type:
+		"ogro":
+			enemy = ogro_scene.instantiate()
+		"elfo":
+			enemy = elfo_scene.instantiate()
+			
+	if enemy:
+		enemy.position = ground_layer.map_to_local(Vector2i(0,0))
+		add_child(enemy)
+		enemy.connect("died", Callable(self, "_on_enemy_died"))
+		
+func _on_enemy_died():
+	if wave_ended:
+		return
+	
+	enemies_alive -= 1
+	print("Enemigo muerto. Restantes:", enemies_alive)
+	
+	if enemies_alive <= 0 and not wave_ended:
+		wave_ended = true
+		print("Todos los enemigos derrotados.")
+		wave_timer.start(10)
+			
+func _on_WaveDelayTimer_timeout():
+	start_next_wave()
