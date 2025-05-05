@@ -3,13 +3,13 @@ extends "res://Enemigos/CualidadesBaseEnemigo.gd"
 signal died
 
 func _ready():
-	health = 100
-	speedOfMovement = 50
-	arrowResistance = 75
-	magicResistance = 0
-	artilleryResistance = 0
-	oroADropear = 10
-	multiplicadorOro = 5
+	health = 50
+	speedOfMovement = 40
+	arrowResistance = 2
+	magicResistance = 2
+	artilleryResistance = 100
+	oroADropear = 30
+	multiplicadorOro = 9
 	
 	super._ready() # Llama al _ready() de la clase base
 	

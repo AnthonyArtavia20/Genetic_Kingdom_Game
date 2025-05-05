@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://k7mv148cftjq"]
+[gd_scene load_steps=10 format=3 uid="uid://k7mv148cftjq"]
 
+[ext_resource type="Script" uid="uid://bhwxd0754vxap" path="res://Enemigos/Harpia/harpia.gd" id="1_5l6k4"]
 [ext_resource type="Texture2D" uid="uid://bpqbnhqiy1ygq" path="res://sprites/Enemies/Harpy/HarpySpriteSheet(50x57).png" id="1_u77r2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u77r2"]
@@ -53,6 +54,7 @@ animations = [{
 }]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_5l6k4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

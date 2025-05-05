@@ -5,8 +5,16 @@ extends CharacterBody2D
 
 var path : PackedVector2Array = []
 var path_index = 0
-var speedOfMovement = 100.0
+
 var health = 100 #Vida general para todos, cambiar esto.
+var speedOfMovement = 100
+#Como base todos los enemigos tendran 100% de resistencia a todo, ya luego cada uno luego le
+# hace poliformismo a estos atributos.
+var arrowResistance = 100
+var magicResistance = 100
+var artilleryResistance = 100
+var oroADropear = 100#Cantidad de oro que va a droppear cada enemigo
+var multiplicadorOro = 1
 
 func _ready():
   #Inicializar el pathfinding de forma general para cada enemigo.
