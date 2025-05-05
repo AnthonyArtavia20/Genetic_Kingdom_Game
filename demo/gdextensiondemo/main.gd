@@ -50,6 +50,8 @@ func start_next_wave():
 	
 	var ogros = []
 	var elfos = []
+	var mercenarios = []
+	var harpia = []
 	
 	if current_wave == 1:
 		for i in range(5 * current_wave):
