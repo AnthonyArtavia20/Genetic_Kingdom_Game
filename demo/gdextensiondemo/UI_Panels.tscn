@@ -7,7 +7,7 @@
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
-[node name="PanelTowers (PanelContainer)" type="PanelContainer" parent="."]
+[node name="PanelTowers" type="PanelContainer" parent="."]
 anchors_preset = -1
 anchor_left = 0.842927
 anchor_right = 1.0
@@ -17,92 +17,92 @@ grow_vertical = 2
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelTowers (PanelContainer)"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelTowers"]
 layout_mode = 2
 
-[node name="Label (Torres Disponibles)" type="Label" parent="PanelTowers (PanelContainer)/VBoxContainer"]
+[node name="Label (Torres Disponibles)" type="Label" parent="PanelTowers/VBoxContainer"]
 layout_mode = 2
 text = "Comprar torres:"
 
-[node name="TorreContainer1 (VBoxContainer)" type="VBoxContainer" parent="PanelTowers (PanelContainer)/VBoxContainer"]
+[node name="TorreContainer1 (VBoxContainer)" type="VBoxContainer" parent="PanelTowers/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect (Arquero)" type="TextureRect" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
+[node name="TextureRect (Arquero)" type="TextureRect" parent="PanelTowers/VBoxContainer/TorreContainer1 (VBoxContainer)"]
 layout_mode = 2
 texture = ExtResource("1_j0qjj")
 stretch_mode = 5
 
-[node name="Label (Arquero - Precio)" type="Label" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
+[node name="Label (Arquero - Precio)" type="Label" parent="PanelTowers/VBoxContainer/TorreContainer1 (VBoxContainer)"]
 layout_mode = 2
 text = "Torre Arquera - 150 Oro"
 horizontal_alignment = 1
 
-[node name="Button (Comprar)" type="Button" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer1 (VBoxContainer)"]
+[node name="Button (Comprar)" type="Button" parent="PanelTowers/VBoxContainer/TorreContainer1 (VBoxContainer)"]
 layout_mode = 2
 icon = ExtResource("2_vsrhp")
 icon_alignment = 1
 
-[node name="TorreContainer2 (VBoxContainer)" type="VBoxContainer" parent="PanelTowers (PanelContainer)/VBoxContainer"]
+[node name="TorreContainer2 (VBoxContainer)" type="VBoxContainer" parent="PanelTowers/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect (Mago)" type="TextureRect" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer2 (VBoxContainer)"]
+[node name="TextureRect (Mago)" type="TextureRect" parent="PanelTowers/VBoxContainer/TorreContainer2 (VBoxContainer)"]
 layout_mode = 2
 texture = ExtResource("3_vsrhp")
 stretch_mode = 5
 
-[node name="Label (Mago - precio)" type="Label" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer2 (VBoxContainer)"]
+[node name="Label (Mago - precio)" type="Label" parent="PanelTowers/VBoxContainer/TorreContainer2 (VBoxContainer)"]
 layout_mode = 2
 text = "Torre de mago - 300 Oro"
 horizontal_alignment = 1
 
-[node name="Button (Comprar)" type="Button" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer2 (VBoxContainer)"]
+[node name="Button (Comprar)" type="Button" parent="PanelTowers/VBoxContainer/TorreContainer2 (VBoxContainer)"]
 layout_mode = 2
 icon = ExtResource("2_vsrhp")
 icon_alignment = 1
 
-[node name="TorreContainer3 (VBoxContainer)" type="VBoxContainer" parent="PanelTowers (PanelContainer)/VBoxContainer"]
+[node name="TorreContainer3 (VBoxContainer)" type="VBoxContainer" parent="PanelTowers/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect (Artillero)" type="TextureRect" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer3 (VBoxContainer)"]
+[node name="TextureRect (Artillero)" type="TextureRect" parent="PanelTowers/VBoxContainer/TorreContainer3 (VBoxContainer)"]
 layout_mode = 2
 texture = ExtResource("4_sf2pk")
 stretch_mode = 5
 
-[node name="Label (Artillero - precio)" type="Label" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer3 (VBoxContainer)"]
+[node name="Label (Artillero - precio)" type="Label" parent="PanelTowers/VBoxContainer/TorreContainer3 (VBoxContainer)"]
 layout_mode = 2
 text = "Torre Artillera - 1000 Oro"
 horizontal_alignment = 1
 
-[node name="Button (Comprar)" type="Button" parent="PanelTowers (PanelContainer)/VBoxContainer/TorreContainer3 (VBoxContainer)"]
+[node name="Button (Comprar)" type="Button" parent="PanelTowers/VBoxContainer/TorreContainer3 (VBoxContainer)"]
 layout_mode = 2
 icon = ExtResource("2_vsrhp")
 icon_alignment = 1
 
-[node name="PanelStats (PanelContainer)" type="PanelContainer" parent="."]
+[node name="PanelStats" type="PanelContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelStats (PanelContainer)"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelStats"]
 layout_mode = 2
 
-[node name="Label (estadisticas)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+[node name="Label (estadisticas)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
 text = "Estadisticas generales de la partida:                   
 (Img de stats)
 
 "
 
-[node name="Label (Generaciones transcurridas)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+[node name="Label (Generaciones transcurridas)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
 text = "Generaciones / Oleadas transcurridas:
 "
 
-[node name="Label (Enemigos eliminados)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+[node name="Label (Enemigos eliminados)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
 text = "Cantidad de enemigos eliminados:
 "
 
-[node name="Label (Fitness promedio)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+[node name="Label (Fitness promedio)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
 text = "Fitness promedio: 
 
@@ -113,7 +113,7 @@ text = "Fitness promedio:
 
 "
 
-[node name="Label (Cantidad de niveles torres)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+[node name="Label (Cantidad de niveles torres)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
 text = "Cantidades de niveles por torre:
 Nivel 1:
@@ -124,6 +124,6 @@ NIvel 3:
 
 "
 
-[node name="Label (Porcentaje mutaciones)" type="Label" parent="PanelStats (PanelContainer)/VBoxContainer"]
+[node name="Label (Porcentaje mutaciones)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
 text = "Porcentaje  de mutaciones: 0%"
