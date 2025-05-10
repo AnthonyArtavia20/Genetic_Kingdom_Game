@@ -23,6 +23,6 @@ Este programa aplica los conceptos fundamentales de la programación orientada a
 ##### Características importantes:
 + **pathfinding(A*):**  Se implementó A* para que los enemigos calculen la ruta hacía el puente por medio del campo de batalla, se emplea el cálculo manhattan.
 
-+ **Algoritmo genético:** El algoritmo genético  se implea por oleadas, donde los enemigos con mejor fitness son cruzados para ingresar nuevos indiiduos a la población. Hay mutacones de manera que los enemigos salen con características especiales.
++ **Algoritmo genético:** El algoritmo genético  se emplea por oleadas, donde los enemigos con mejor fitness son cruzados para ingresar nuevos individuos a la población. Hay mutaciones de manera que los enemigos salen con características especiales.
 
 
