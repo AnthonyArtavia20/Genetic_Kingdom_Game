@@ -1,11 +1,10 @@
 extends Node2D
 
-signal wave_completed(stats)
-
 @onready var camera = $Camera2D
 @onready var ground_layer = $TileMap/GroundLayer
 @onready var obstacle_layer = $TileMap/ObstacleLayer
 @onready var pathfinder = $Pathfinder
+@onready var genetic_manager = $GeneticManager
 @onready var spawn_timer = $SpawnTimer
 @onready var wave_timer = $WaveDelayTimer
 
@@ -29,136 +28,211 @@ var enemies_to_spawn = []
 var enemies_alive = 0
 var wave_stats = { "spawned": 0, "killed": 0, "start_time": 0 }
 var wave_ended = false
+var next_generation = []
+var dead_enemies_data = []
 
 func _ready():
-	# Conectar señales de timers, estos se van a llamar cada cierto tiempo
 	spawn_timer.timeout.connect(Callable(self, "_on_spawn_timeout"))
 	wave_timer.timeout.connect(Callable(self, "_on_wave_delay_timeout"))
-	
-	# Inicializar Pathfinder marcando celdas
+	genetic_manager.connect("generation_ready", Callable(self, "_on_generation_ready"))
+
 	print("Inicializando Pathfinder...")
-	
-	# 1. Primero marcamos TODO lo caminable
 	for y in range(17):
 		for x in range(41):
 			var tile_pos = Vector2i(x, y)
 			var tile_id = ground_layer.get_cell_source_id(tile_pos)
 			if tile_id != -1:
-				pathfinder.set_obstacle(tile_pos, true)  # true = caminable
-				print("Marcado como caminable:", tile_pos)
-
-	# 2. Luego marcamos TODO lo que es obstáculo (sobrescribe)
+				pathfinder.set_obstacle(tile_pos, true)
 	for y in range(17):
 		for x in range(41):
 			var tile_pos = Vector2i(x, y)
 			var tile_id = obstacle_layer.get_cell_source_id(tile_pos)
 			if tile_id != -1:
-				pathfinder.set_obstacle(tile_pos, false)  # false = no caminable
-				print("Marcado como obstáculo:", tile_pos)
-	# Arrancar primera oleada
+				pathfinder.set_obstacle(tile_pos, false)
+
 	start_next_wave()
 
-# Inicializa y arranca una nueva oleada
 func start_next_wave():
-	# Detener cualquier timer pendiente antes de reiniciar
 	spawn_timer.stop()
 	wave_timer.stop()
-
-	current_wave += 1 #Seteo de contadores de estadisticas a 0 para cada oleada
-	wave_stats["spawned"]    = 0
-	wave_stats["killed"]     = 0
-	wave_stats["start_time"] = Time.get_ticks_msec()
+	current_wave += 1
+	wave_stats = {
+		"spawned": 0,
+		"killed": 0,
+		"start_time": Time.get_ticks_msec()
+	}
 	wave_ended = false
 
-	enemies_to_spawn = generate_wave_list(current_wave)
 	lblGeneraciones.text = "Oleada: %d" % current_wave
 	lblEliminados.text   = "Eliminados: 0"
 	lblFitness.text      = "Fitness: -"
-	lblMutaciones.text   = "Mutaciones: 0%"
+	lblMutaciones.text   = "Mutaciones: 50%"
+
+	print("🟢 Iniciando oleada %d" % current_wave)
+
+	var wave_size = current_wave * 5
+	if next_generation.is_empty():
+		enemies_to_spawn = generate_wave_list(current_wave)
+	else:
+		enemies_to_spawn.clear()
+		for dict in next_generation:
+			var tipo = dict.get("type", "ogro")
+			var enemy = null
+
+			match tipo:
+				"ogro":
+					enemy = ogro_scene.instantiate()
+				"elfo":
+					enemy = elfo_scene.instantiate()
+				"harpia":
+					enemy = harpy_scene.instantiate()
+				"merc":
+					enemy = mercenary_scene.instantiate()
+				_:
+					enemy = ogro_scene.instantiate()
+
+			enemy.health = dict.get("health", 50.0)
+			enemy.speedOfMovement = dict.get("speed", 50.0)
+			enemy.arrowResistance = dict.get("arrow_res", 0.0)
+			enemy.magicResistance = dict.get("magic_res", 0.0)
+			enemy.artilleryResistance = dict.get("artillery_res", 0.0)
+			enemy.oroADropear = dict.get("gold", 10.0)
+			enemy.genes = dict.duplicate(true)  # Guardar los genes exactos
+
+			enemies_to_spawn.append(enemy)
+
+		next_generation.clear()
 
 	spawn_timer.start()
-	print("Iniciando oleada %d" % current_wave)
 
 # Genera la lista de escenas de enemigos para la oleada
 func generate_wave_list(wave: int) -> Array:
 	var listaDeEnemigosAGenerar = []
-	var total = wave * 5
-	
+
+	var total = wave * 5  # Cantidad total de enemigos de la oleada (crece con la oleada)
+
 	#Cantidad de enemigos especiales segun la oleada
 	var cantidad_mercenarios  = 0
 	var cantidad_harpias = 0
 	if wave >= 3:
-		cantidad_mercenarios = int(wave/3)
+		cantidad_mercenarios = int(wave / 3)
 	if wave >= 5:
-		cantidad_harpias = int(wave/5)
-	var cantidadDeEnemigosRelleno = total - cantidad_mercenarios - cantidad_harpias #lo que hace es sacar la cantidad de elfos y ogros(relleno) restando los mercenarios y harpias
+		cantidad_harpias = int(wave / 5)
+	var cantidadDeEnemigosRelleno = total - cantidad_mercenarios - cantidad_harpias 
+	# lo que hace es sacar la cantidad de elfos y ogros(relleno) restando los mercenarios y harpias
 	
 	#Cantidad de enemigos de relleno
 	for i in range(cantidadDeEnemigosRelleno):
 		if i % 2 == 0:
-			listaDeEnemigosAGenerar.append(ogro_scene)
+			listaDeEnemigosAGenerar.append(ogro_scene.instantiate())
 		else:
-			listaDeEnemigosAGenerar.append(elfo_scene)
+			listaDeEnemigosAGenerar.append(elfo_scene.instantiate())
 	
 	#Añadimos el resto de enemigos chetados
 	#Mercenarios:
 	for i in range(cantidad_mercenarios):
-		listaDeEnemigosAGenerar.append(mercenary_scene)
+		listaDeEnemigosAGenerar.append(mercenary_scene.instantiate())
 	
 	#Harpias
 	for i in range(cantidad_harpias):
-		listaDeEnemigosAGenerar.append(harpy_scene)
+		listaDeEnemigosAGenerar.append(harpy_scene.instantiate())
 		
 	#Luego podemos mezclar un poco la lista para dar sensacion de random
 	listaDeEnemigosAGenerar.shuffle()
-	
+
 	return listaDeEnemigosAGenerar
 
-# Spawn de enemigos, timers que e llaman cada cierto tiempo
 func _on_spawn_timeout():
 	if enemies_to_spawn.is_empty():
-		# Ya generó todos; espera muertes para cerrar oleada
 		return
-		
-	#generaciones de enemigos, ya sea si quedan por spawnear, los instancia y los añade a la escena
-	var scene = enemies_to_spawn.pop_front()
-	var enemy = scene.instantiate()
+	var enemy = enemies_to_spawn.pop_front()
 	enemy.position = ground_layer.map_to_local(Vector2i(0, 0))
+	enemy.birth_time = Time.get_ticks_msec()
+	enemy.connect("died", Callable(self, "_on_enemy_died").bind(enemy), CONNECT_ONE_SHOT)
 	add_child(enemy)
-	enemy.connect("died", Callable(self, "_on_enemy_died"), CONNECT_ONE_SHOT)
 	wave_stats["spawned"] += 1
+	enemies_alive += 1
 
-func _on_enemy_died(): #Esta funcion se llama por medio de la señal, cada ves que un enemigo muere.
-	if wave_ended: #Si la oleada ya termino simplemente no s ehace nada.
+func _on_enemy_died(enemy):
+	if wave_ended:
 		return
-	wave_stats["killed"] += 1 #Pero si no ha terminado si toca actualizar las Stats
+	enemies_alive -= 1
+	wave_stats["killed"] += 1
 	lblEliminados.text = "Eliminados: %d" % wave_stats["killed"]
 
-	# Solo terminar oleada cuando no haya más por spawnear y todos los generados estén muertos
-	if enemies_to_spawn.is_empty() and wave_stats["killed"] >= wave_stats["spawned"]:
-		_end_wave() #Se llama a la funcion encargada de frenar todos los timers y calcular el fitness
+	var death_time = Time.get_ticks_msec()
+	var lifetime = death_time - enemy.birth_time
+	var gold = enemy.oroADropear if enemy.has_method("oroADropear") else 10
 
-func _end_wave(): #Se llama cuando no quedan mas enemigos
+	var original = {
+		"health": enemy.health,
+		"speed": enemy.speedOfMovement,
+		"arrow_res": enemy.arrowResistance,
+		"magic_res": enemy.magicResistance,
+		"artillery_res": enemy.artilleryResistance,
+		"gold": enemy.oroADropear
+	}
+
+	dead_enemies_data.append({
+		"lifetime": lifetime,
+		"gold": gold,
+		"genes": enemy.genes
+	})
+
+	if enemies_to_spawn.is_empty() and enemies_alive <= 0:
+		_end_wave()
+
+func _end_wave():
 	wave_ended = true
-	# Asegurar que no quedan timers corriendo porque eso se bugueaba, iniciaba una oleada antes de que temrinara la otra
 	spawn_timer.stop()
 	wave_timer.stop()
+	lblFitness.text = "Fitness: calculando..."
+	lblMutaciones.text = "Mutaciones: calculando..."
 
-	var _duration = Time.get_ticks_msec() - wave_stats["start_time"]
-	var avg_fitness = compute_avg_fitness()
-	lblFitness.text    = "Fitness: %.2f" % avg_fitness
-	lblMutaciones.text = "Mutaciones: %d%%" % 0
-	emit_signal("wave_completed", {"wave": current_wave, "stats": wave_stats})
+	var lived_times = []
+	var gold_drops = []
+	var original_data = []
 
-	# Iniciar próxima oleada tras retardo en dos segundos
+	print("📊 Enviando datos al GA. Enemigos registrados:", dead_enemies_data.size())
+	for d in dead_enemies_data:
+		lived_times.append(d["lifetime"])
+		gold_drops.append(d["gold"])
+		original_data.append(d["genes"])
+		print("  -> tiempo:", d["lifetime"], " oro:", d["gold"])
+
+	dead_enemies_data.clear()
+
+	genetic_manager._on_wave_completed({
+		"lived_times": lived_times,
+		"gold_drops": gold_drops,
+		"original_data": original_data
+	})
+
+	print("⏳ Esperando generación genética para oleada %d..." % current_wave)
 	wave_timer.start(2.0)
-	
-func _on_wave_delay_timeout():
-	# Desde la funcion _end_wave cuando termina la oleada se inicia el wave_timer.start(2.0), 
-	#se emite la señal, ese timeot se conecta con Callable(self, "_on_wave_delay_timeout"),llamando
-	#asi esta funcion
-	start_next_wave()
 
-# Placeholder(o protopipo hueco por el momento) para cálculo de fitness promedio
-func compute_avg_fitness() -> float:
-	return 0.0
+func _on_generation_ready(new_population):
+	print("✅ Se recibió nueva generación con %d individuos" % new_population.size())
+
+	if new_population.is_empty():
+		print("⚠️ La nueva generación está vacía. No se puede continuar.")
+		return
+
+	next_generation = new_population
+
+	var total_fitness = 0.0
+	var tau_max = 30000.0
+	var g_max = 50.0
+
+	for d in new_population:
+		var t = float(d.get("health", 0))  # get() evita errores si falta la clave
+		var g = float(d.get("gold", 0))
+		var f = 0.5 * (t / tau_max) + 0.5 * (g / g_max)
+		total_fitness += f
+		print("  ↪︎ Individuo - salud:%.2f oro:%.2f fitness:%.10f" % [t, g, f])
+
+	var avg_fitness = total_fitness / new_population.size()
+	lblFitness.text = "Fitness: %.3f" % avg_fitness
+	lblMutaciones.text = "Mutaciones: 50%"
+
+	start_next_wave()

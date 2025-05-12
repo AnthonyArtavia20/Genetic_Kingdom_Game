@@ -73,3 +73,5 @@ limit_bottom = 2000
 [node name="WaveDelayTimer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
+
+[node name="GeneticManager" type="GeneticManager" parent="."]
