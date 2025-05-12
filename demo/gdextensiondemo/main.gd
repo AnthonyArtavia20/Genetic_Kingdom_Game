@@ -56,7 +56,11 @@ func start_next_wave():
 	spawn_timer.stop()
 	wave_timer.stop()
 	current_wave += 1
-	wave_stats = {"spawned": 0, "killed": 0, "start_time": Time.get_ticks_msec()}
+	wave_stats = {
+		"spawned": 0,
+		"killed": 0,
+		"start_time": Time.get_ticks_msec()
+	}
 	wave_ended = false
 
 	lblGeneraciones.text = "Oleada: %d" % current_wave
@@ -66,6 +70,7 @@ func start_next_wave():
 
 	print("🟢 Iniciando oleada %d" % current_wave)
 
+	var wave_size = current_wave * 5
 	if next_generation.is_empty():
 		enemies_to_spawn = generate_wave_list(current_wave)
 	else:
@@ -79,41 +84,42 @@ func start_next_wave():
 					enemy = ogro_scene.instantiate()
 				"elfo":
 					enemy = elfo_scene.instantiate()
-				"merc":
-					enemy = mercenary_scene.instantiate()
 				"harpia":
 					enemy = harpy_scene.instantiate()
+				"merc":
+					enemy = mercenary_scene.instantiate()
 				_:
-					enemy = ogro_scene.instantiate()  # Fallback
+					enemy = ogro_scene.instantiate()
 
-			enemy.health = dict["health"]
-			enemy.speedOfMovement = dict["speed"]
-			enemy.arrowResistance = dict["arrow_res"]
-			enemy.magicResistance = dict["magic_res"]
-			enemy.artilleryResistance = dict["artillery_res"]
-			enemy.oroADropear = dict["gold"]
-			enemy.genes = dict.duplicate()
+			enemy.health = dict.get("health", 50.0)
+			enemy.speedOfMovement = dict.get("speed", 50.0)
+			enemy.arrowResistance = dict.get("arrow_res", 0.0)
+			enemy.magicResistance = dict.get("magic_res", 0.0)
+			enemy.artilleryResistance = dict.get("artillery_res", 0.0)
+			enemy.oroADropear = dict.get("gold", 10.0)
+			enemy.genes = dict.duplicate(true)  # Guardar los genes exactos
 
 			enemies_to_spawn.append(enemy)
-		
+
 		next_generation.clear()
 
 	spawn_timer.start()
 
-
 # Genera la lista de escenas de enemigos para la oleada
 func generate_wave_list(wave: int) -> Array:
 	var listaDeEnemigosAGenerar = []
-	var total = wave * 5
-	
+
+	var total = wave * 5  # Cantidad total de enemigos de la oleada (crece con la oleada)
+
 	#Cantidad de enemigos especiales segun la oleada
 	var cantidad_mercenarios  = 0
 	var cantidad_harpias = 0
 	if wave >= 3:
-		cantidad_mercenarios = int(wave/3)
+		cantidad_mercenarios = int(wave / 3)
 	if wave >= 5:
-		cantidad_harpias = int(wave/5)
-	var cantidadDeEnemigosRelleno = total - cantidad_mercenarios - cantidad_harpias #lo que hace es sacar la cantidad de elfos y ogros(relleno) restando los mercenarios y harpias
+		cantidad_harpias = int(wave / 5)
+	var cantidadDeEnemigosRelleno = total - cantidad_mercenarios - cantidad_harpias 
+	# lo que hace es sacar la cantidad de elfos y ogros(relleno) restando los mercenarios y harpias
 	
 	#Cantidad de enemigos de relleno
 	for i in range(cantidadDeEnemigosRelleno):
@@ -133,7 +139,7 @@ func generate_wave_list(wave: int) -> Array:
 		
 	#Luego podemos mezclar un poco la lista para dar sensacion de random
 	listaDeEnemigosAGenerar.shuffle()
-	
+
 	return listaDeEnemigosAGenerar
 
 func _on_spawn_timeout():
@@ -223,10 +229,10 @@ func _on_generation_ready(new_population):
 		var g = float(d.get("gold", 0))
 		var f = 0.5 * (t / tau_max) + 0.5 * (g / g_max)
 		total_fitness += f
-		print("  ↪︎ Individuo - salud:", t, " oro:", g, " fitness:", f)
+		print("  ↪︎ Individuo - salud:%.2f oro:%.2f fitness:%.10f" % [t, g, f])
 
-	var avg = total_fitness / new_population.size()
-	lblFitness.text = "Fitness: %.2f" % avg
+	var avg_fitness = total_fitness / new_population.size()
+	lblFitness.text = "Fitness: %.3f" % avg_fitness
 	lblMutaciones.text = "Mutaciones: 50%"
 
 	start_next_wave()

@@ -2,7 +2,7 @@ extends "res://Enemigos/CualidadesBaseEnemigo.gd"
 #Ogro
 func _ready():
 	health = 100
-	speedOfMovement = 100
+	speedOfMovement = 200
 	arrowResistance = 75
 	magicResistance = 0
 	artilleryResistance = 0

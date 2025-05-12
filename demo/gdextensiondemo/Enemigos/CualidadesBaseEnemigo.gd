@@ -7,7 +7,7 @@ signal died  # Señal para notificar cuando el enemigo muere (algoritmo genétic
 
 var path : PackedVector2Array = []
 var path_index = 0
-var genes = {}
+var genes : Dictionary = {}
 
 var health = 100 #Vida general para todos, cambiar esto.
 var speedOfMovement = 100
