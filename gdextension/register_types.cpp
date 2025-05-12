@@ -1,15 +1,17 @@
 #include "register_types.h"
 #include "gdexample.h"
 #include "pathfinder/pathfinder.h"
+#include "genetic/GeneticManager.h"
 
 using namespace godot;
 
 void initialize_types(ModuleInitializationLevel p_level) {
     if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE)
         return;
-    
+
     ClassDB::register_class<GDExample>();
     ClassDB::register_class<Pathfinder>();
+    ClassDB::register_class<GeneticManager>();
 }
 
 void uninitialize_types(ModuleInitializationLevel p_level) {

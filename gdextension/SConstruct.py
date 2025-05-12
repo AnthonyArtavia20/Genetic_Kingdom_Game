@@ -17,18 +17,22 @@ env.Append(CPPPATH=[
     os.path.join(godot_cpp_path, 'gen', 'include', 'godot_cpp', 'classes'),
     os.path.join(godot_cpp_path, 'gen', 'include', 'godot_cpp', 'variant'),
     os.path.join(godot_cpp_path, 'gdextension'),
+    '#genetic',
+    '#pathfinder'
 ])
 
 env.Append(LIBPATH=[os.path.join(godot_cpp_path, 'bin')])
 env.Append(LIBS=['godot-cpp'])
 env.Append(CXXFLAGS=['-std=c++17', '-g', '-O2', '-fPIC'])
 
-# Archivos fuente
+# Archivos fuente que se compilan
 sources = [
     'gdexample.cpp',
-    'register_types.cpp',
+    'register_types.cpp', #aquí vna los registros del A* y el algoritmo genético
     'pathfinder/pathfinder.cpp',
     'pathfinder/astar_grid.cpp',
+    'genetic/GeneticAlgorithm.cpp',
+    'genetic/GeneticManager.cpp',
 ]
 
 # Nombre base sin extensión (SCons la agregará)
