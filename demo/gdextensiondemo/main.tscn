@@ -75,3 +75,5 @@ wait_time = 10.0
 one_shot = true
 
 [node name="GeneticManager" type="GeneticManager" parent="."]
+
+[node name="TowerContainer" type="Node2D" parent="."]

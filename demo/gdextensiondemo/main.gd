@@ -22,6 +22,16 @@ extends Node2D
 @onready var mercenary_scene = preload("res://Enemigos/Mercenario/Mercenario.tscn")
 @onready var harpy_scene = preload("res://Enemigos/Harpia/Harpia.tscn")
 
+@onready var tower_container = $TowerContainer
+
+var buy_archer_button: Button
+var buy_mage_button: Button
+var buy_artillery_button: Button
+
+var current_gold = 10000
+var selected_tower_scene: PackedScene = null
+var tower_cost = 0
+
 #Variables para el control de oleadas
 var current_wave = 0
 var enemies_to_spawn = []
@@ -35,6 +45,15 @@ func _ready():
 	spawn_timer.timeout.connect(Callable(self, "_on_spawn_timeout"))
 	wave_timer.timeout.connect(Callable(self, "_on_wave_delay_timeout"))
 	genetic_manager.connect("generation_ready", Callable(self, "_on_generation_ready"))
+
+	var ui_panels = $UI.get_child(0)  # asumiendo que UI solo tiene uno: la escena instanciada
+	buy_archer_button = ui_panels.get_node("PanelTowers/VBoxContainer/TorreContainer1/Button_Archer")
+	buy_mage_button = ui_panels.get_node("PanelTowers/VBoxContainer/TorreContainer2/Button_Mage")
+	buy_artillery_button = ui_panels.get_node("PanelTowers/VBoxContainer/TorreContainer3/Button_Artillery")
+
+	buy_archer_button.pressed.connect(_on_buy_archer_pressed)
+	buy_mage_button.pressed.connect(_on_buy_mage_pressed)
+	buy_artillery_button.pressed.connect(_on_buy_artillery_pressed)
 
 	print("Inicializando Pathfinder...")
 	for y in range(17):
@@ -236,3 +255,30 @@ func _on_generation_ready(new_population):
 	lblMutaciones.text = "Mutaciones: 50%"
 
 	start_next_wave()
+	
+func _on_buy_archer_pressed():
+	select_tower_to_place("res://Torres/Archer.tscn", 150)
+
+func _on_buy_mage_pressed():
+	select_tower_to_place("res://Torres/Mage.tscn", 300)
+
+func _on_buy_artillery_pressed():
+	select_tower_to_place("res://Torres/Artillery.tscn", 1000)
+
+func select_tower_to_place(scene_path: String, cost: int):
+	selected_tower_scene = load(scene_path)
+	tower_cost = cost
+
+func _unhandled_input(event):
+	if selected_tower_scene and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		print("Click detectado. Torre seleccionada:", selected_tower_scene)
+		var click_pos = get_global_mouse_position()
+		var cell = obstacle_layer.local_to_map(click_pos)
+		if obstacle_layer.get_cell_tile_data(cell) != null:
+			var world_pos = obstacle_layer.map_to_local(cell)
+			if current_gold >= tower_cost:
+				var tower = selected_tower_scene.instantiate()
+				tower.position = world_pos
+				tower_container.add_child(tower)
+				current_gold -= tower_cost
+				selected_tower_scene = null
