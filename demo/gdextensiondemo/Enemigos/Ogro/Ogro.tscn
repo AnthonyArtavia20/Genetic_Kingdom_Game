@@ -54,6 +54,7 @@ animations = [{
 }]
 
 [node name="Ogro" type="CharacterBody2D"]
+collision_mask = 255
 script = ExtResource("1_0tej1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

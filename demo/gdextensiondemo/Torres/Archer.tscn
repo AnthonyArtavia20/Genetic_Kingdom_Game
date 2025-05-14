@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0gkdnfp3eqor"]
+
+[ext_resource type="Script" uid="uid://bm6uhnihadlsm" path="res://Torres/Archer.gd" id="1_g7lgu"]
+[ext_resource type="Texture2D" uid="uid://dqk0nj6e4ujra" path="res://sprites/Towers/Archer_Tower/Archer_Tower1.png" id="1_wcli1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g7lgu"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tl5t2"]
+radius = 192.0
+
+[node name="Archer" type="Area2D"]
+script = ExtResource("1_g7lgu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wcli1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g7lgu")
+
+[node name="UpgradeMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="UpgradeMenu/VBoxContainer"]
+layout_mode = 2
+text = "Mejorar a Tier 2 - XXXG"
+
+[node name="Button" type="Button" parent="UpgradeMenu/VBoxContainer"]
+layout_mode = 2
+text = "Mejorar"
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_tl5t2")
