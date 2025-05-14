@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://r8suepklt4q1"]
+[gd_scene load_steps=11 format=3 uid="uid://r8suepklt4q1"]
 
 [ext_resource type="Script" uid="uid://bbnf8yn7q6uuf" path="res://Enemigos/Elfo/Elfo.gd" id="1_6sfpn"]
 [ext_resource type="Texture2D" uid="uid://fg6otud8rt2u" path="res://sprites/Enemies/DarkElf/DarkElfSpriteSheet(37x37).png" id="1_51c7w"]
@@ -53,9 +53,16 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6sfpn"]
+radius = 13.0
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
+collision_mask = 0
 script = ExtResource("1_6sfpn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_lve56")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6sfpn")

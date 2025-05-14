@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5pus2fprlaxe"]
+[gd_scene load_steps=11 format=3 uid="uid://c5pus2fprlaxe"]
 
 [ext_resource type="Script" uid="uid://b7x6j78ix33be" path="res://Enemigos/Ogro/ogro.gd" id="1_0tej1"]
 [ext_resource type="Texture2D" uid="uid://laj1ifgkvw8v" path="res://sprites/Enemies/Ogre/OgreSpriteSheet(91x51).png" id="2_jyl5r"]
@@ -53,8 +53,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6thlf"]
+radius = 25.0
+
 [node name="Ogro" type="CharacterBody2D"]
-collision_mask = 255
+collision_mask = 0
 script = ExtResource("1_0tej1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -63,3 +66,6 @@ position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_c3oj2")
 animation = &"CaminarDerecha"
 frame_progress = 0.550801
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6thlf")

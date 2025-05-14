@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dstq6wotx4ykm"]
+[gd_scene load_steps=11 format=3 uid="uid://dstq6wotx4ykm"]
 
 [ext_resource type="Texture2D" uid="uid://dc2xojovnv337" path="res://sprites/Enemies/Mercenary/MercenarySpriteSheet(44x44).png" id="1_8egb8"]
 [ext_resource type="Script" uid="uid://2p1p7cqcmrcf" path="res://Enemigos/Mercenario/mercenario.gd" id="1_el1v2"]
@@ -53,7 +53,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_el1v2"]
+radius = 20.0
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
+collision_mask = 0
 script = ExtResource("1_el1v2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -61,3 +65,6 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_r71hl")
 frame = 1
 frame_progress = 0.736015
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_el1v2")

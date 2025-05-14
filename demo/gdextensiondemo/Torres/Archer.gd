@@ -49,7 +49,7 @@ func get_new_target():
 
 	for body in bodies:
 		print("👀 En área:", body.name)
-		if body.name.begins_with("Ogro") or body.is_in_group("Enemigo"):
+		if body.is_in_group("Enemigo"):
 			print("🎯 Torre detecta:", body.name)
 			target = body
 			break
