@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdv1kh8a3hdy7"]
+[gd_scene load_steps=10 format=3 uid="uid://bdv1kh8a3hdy7"]
 
 [ext_resource type="Texture2D" uid="uid://p2iuw1siewog" path="res://sprites/Towers/Archer_Tower/Archer_Tower3.png" id="1_j0qjj"]
 [ext_resource type="Texture2D" uid="uid://cehv1qpqobamg" path="res://sprites/others/buy_button.png" id="2_vsrhp"]
 [ext_resource type="Texture2D" uid="uid://cmjjb0nobvbld" path="res://sprites/Towers/Mage_Tower/Mage_Tower3.png" id="3_vsrhp"]
 [ext_resource type="Texture2D" uid="uid://dt3u3eet8ecac" path="res://sprites/Towers/Catapult_Tower/Tier3/Right_Catapult1.png" id="4_sf2pk"]
 [ext_resource type="FontFile" uid="uid://3f6xc64sqqw5" path="res://Font/alagard.ttf" id="5_k1l61"]
+[ext_resource type="Texture2D" uid="uid://daw4soo47dsk4" path="res://sprites/Logo.png" id="6_64415"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64415"]
 bg_color = Color(0.403922, 0.258824, 0.133333, 1)
@@ -128,7 +129,7 @@ icon_alignment = 1
 
 [node name="PanelStats" type="PanelContainer" parent="."]
 offset_right = 363.0
-offset_bottom = 854.0
+offset_bottom = 785.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_sf2pk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelStats"]
@@ -140,12 +141,6 @@ theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
 theme_override_fonts/font = ExtResource("5_k1l61")
 theme_override_font_sizes/font_size = 0
 text = "Estadisticas generales de la partida:                   
-(Img de stats)
-
-
-
-
-
 "
 justification_flags = 35
 text_direction = 1
@@ -179,16 +174,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
 theme_override_fonts/font = ExtResource("5_k1l61")
 theme_override_font_sizes/font_size = 0
-text = "Fitness promedio: 
-
-
-
-
-
-
-
-
-"
+text = "Fitness promedio: "
 
 [node name="Panel4" type="Panel" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
@@ -218,3 +204,8 @@ text = "Porcentaje  de mutaciones: 0%"
 
 [node name="Panel6" type="Panel" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelStats/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_64415")
+expand_mode = 4
