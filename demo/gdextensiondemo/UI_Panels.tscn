@@ -99,7 +99,7 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
 theme_override_fonts/font = ExtResource("5_k1l61")
-text = "Torre de mago - 300 Oro"
+text = "Torre de mago - 250 Oro"
 horizontal_alignment = 1
 
 [node name="Button_Mage" type="Button" parent="PanelTowers/VBoxContainer/TorreContainer2"]
@@ -119,7 +119,7 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
 theme_override_fonts/font = ExtResource("5_k1l61")
-text = "Torre Artillera - 1000 Oro"
+text = "Torre Artillera - 450 Oro"
 horizontal_alignment = 1
 
 [node name="Button_Artillery" type="Button" parent="PanelTowers/VBoxContainer/TorreContainer3"]
