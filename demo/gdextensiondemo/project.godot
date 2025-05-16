@@ -25,6 +25,10 @@ window/stretch/aspect="expand"
 
 project/assembly_name="GDExtensionDemo"
 
+[global_group]
+
+Enemigo=""
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
