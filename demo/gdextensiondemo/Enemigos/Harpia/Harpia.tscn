@@ -56,7 +56,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_5l6k4"]
 radius = 22.0
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Harpy" type="CharacterBody2D" groups=["Enemigo"]]
 collision_mask = 0
 script = ExtResource("1_5l6k4")
 

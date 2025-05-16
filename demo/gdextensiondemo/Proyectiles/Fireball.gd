@@ -3,7 +3,7 @@ extends Area2D
 var velocidad = 400
 var objetivo: Node2D = null
 var damage = 10  # Daño base. Se puede cambiar desde la torre.
-var damage_type = "arrow"
+var damage_type = "magic"
 
 func _process(delta):
 	if not objetivo or not is_instance_valid(objetivo):
@@ -12,7 +12,7 @@ func _process(delta):
 
 	# Apunta hacia el objetivo
 	look_at(objetivo.global_position)
-	rotation += deg_to_rad(90)
+	rotation += deg_to_rad(90)  # Ajusta 90 grados si tu sprite apunta horizontalmente
 
 	# Movimiento
 	position += (objetivo.global_position - position).normalized() * velocidad * delta

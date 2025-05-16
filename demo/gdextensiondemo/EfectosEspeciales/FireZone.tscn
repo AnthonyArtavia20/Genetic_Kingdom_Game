@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=3 uid="uid://cbywvlfapp7wq"]
+
+[ext_resource type="Script" uid="uid://cs5hgr14ohbjd" path="res://EfectosEspeciales/FireZone.gd" id="1_31g4w"]
+[ext_resource type="Texture2D" uid="uid://de41pxro14mgb" path="res://sprites/others/FireballSpriteSheet(11x22).png" id="2_fdxsb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_31g4w"]
+radius = 70.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxdtg"]
+atlas = ExtResource("2_fdxsb")
+region = Rect2(0, 0, 11, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_erma7"]
+atlas = ExtResource("2_fdxsb")
+region = Rect2(11, 0, 11, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8j3v"]
+atlas = ExtResource("2_fdxsb")
+region = Rect2(22, 0, 11, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wt4s"]
+atlas = ExtResource("2_fdxsb")
+region = Rect2(33, 0, 11, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tot4t"]
+atlas = ExtResource("2_fdxsb")
+region = Rect2(44, 0, 11, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbim4"]
+atlas = ExtResource("2_fdxsb")
+region = Rect2(55, 0, 11, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qv60k"]
+atlas = ExtResource("2_fdxsb")
+region = Rect2(66, 0, 11, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbtl5"]
+atlas = ExtResource("2_fdxsb")
+region = Rect2(77, 0, 11, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4wu7i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxdtg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_erma7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8j3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wt4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tot4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbim4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qv60k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbtl5")
+}],
+"loop": true,
+"name": &"FireZone",
+"speed": 5.0
+}]
+
+[node name="FireZone" type="Area2D"]
+script = ExtResource("1_31g4w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_31g4w")
+
+[node name="CenterSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4wu7i")
+animation = &"FireZone"
+autoplay = "FireZone"
+
+[node name="Timer" type="Timer" parent="."]

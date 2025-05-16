@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://jexfrm6jhrog"]
+[gd_scene load_steps=41 format=3 uid="uid://jexfrm6jhrog"]
 
 [ext_resource type="Texture2D" uid="uid://g5qhd44ki0wi" path="res://sprites/Towers/Catapult_Tower/Tier1/CatapultSpriteSheet1Left(64x64).png" id="1_2sl0x"]
 [ext_resource type="Script" uid="uid://dxserv5imb5hu" path="res://Torres/Artillery.gd" id="1_ehprl"]
@@ -146,7 +146,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gk8nn")
 }],
-"loop": true,
+"loop": false,
 "name": &"tier1_left",
 "speed": 5.0
 }, {
@@ -166,7 +166,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b0sfo")
 }],
-"loop": true,
+"loop": false,
 "name": &"tier1_right",
 "speed": 5.0
 }, {
@@ -186,7 +186,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1rhb4")
 }],
-"loop": true,
+"loop": false,
 "name": &"tier2_left",
 "speed": 5.0
 }, {
@@ -206,7 +206,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g4foj")
 }],
-"loop": true,
+"loop": false,
 "name": &"tier2_right",
 "speed": 5.0
 }, {
@@ -226,7 +226,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_813f1")
 }],
-"loop": true,
+"loop": false,
 "name": &"tier3_left",
 "speed": 5.0
 }, {
@@ -246,7 +246,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1w6kf")
 }],
-"loop": true,
+"loop": false,
 "name": &"tier3_right",
 "speed": 5.0
 }]
@@ -254,12 +254,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_52ic7"]
 radius = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ehprl"]
+radius = 108.0
+
 [node name="Artillery" type="Area2D"]
 script = ExtResource("1_ehprl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_83lm8")
-animation = &"tier3_left"
+animation = &"tier3_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_52ic7")
@@ -283,3 +286,8 @@ text = "Mejorar a Tier 2 - XXXG"
 [node name="Button" type="Button" parent="UpgradeMenu/VBoxContainer"]
 layout_mode = 2
 text = "Mejorar"
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_ehprl")

@@ -182,6 +182,8 @@ func _on_enemy_died(enemy):
 	var death_time = Time.get_ticks_msec()
 	var lifetime = death_time - enemy.birth_time
 	var gold = enemy.oroADropear if enemy.has_method("oroADropear") else 10
+	current_gold += gold
+
 
 	var original = {
 		"health": enemy.health,
@@ -260,10 +262,10 @@ func _on_buy_archer_pressed():
 	select_tower_to_place("res://Torres/Archer.tscn", 150)
 
 func _on_buy_mage_pressed():
-	select_tower_to_place("res://Torres/Mage.tscn", 300)
+	select_tower_to_place("res://Torres/Mage.tscn", 250)
 
 func _on_buy_artillery_pressed():
-	select_tower_to_place("res://Torres/Artillery.tscn", 1000)
+	select_tower_to_place("res://Torres/Artillery.tscn", 450)
 
 func select_tower_to_place(scene_path: String, cost: int):
 	selected_tower_scene = load(scene_path)
@@ -271,14 +273,32 @@ func select_tower_to_place(scene_path: String, cost: int):
 
 func _unhandled_input(event):
 	if selected_tower_scene and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		print("Click detectado. Torre seleccionada:", selected_tower_scene)
 		var click_pos = get_global_mouse_position()
-		var cell = obstacle_layer.local_to_map(click_pos)
-		if obstacle_layer.get_cell_tile_data(cell) != null:
-			var world_pos = obstacle_layer.map_to_local(cell)
+
+		var cell = obstacle_layer.local_to_map(obstacle_layer.to_local(click_pos))
+		var tile_id = obstacle_layer.get_cell_source_id(cell)
+
+		print("Celda clickeada:", cell, "ID tile:", tile_id)
+
+		if tile_id == 1:
+			var world_pos = obstacle_layer.to_global(obstacle_layer.map_to_local(cell))
+			
+			# Compensación manual para corregir desfase de torre
+			world_pos -= Vector2(0, 0)
+
+			for torre in tower_container.get_children():
+				if torre.position.distance_to(world_pos) < 1:
+					print("⚠️ Ya hay una torre aquí.")
+					return
+
 			if current_gold >= tower_cost:
 				var tower = selected_tower_scene.instantiate()
 				tower.position = world_pos
 				tower_container.add_child(tower)
 				current_gold -= tower_cost
 				selected_tower_scene = null
+				print("✅ Torre colocada correctamente en posición exacta:", world_pos)
+			else:
+				print("❌ No tienes suficiente oro.")
+		else:
+			print("⛔ No se puede construir aquí. Celda inválida.")

@@ -52,10 +52,25 @@ func _process(delta): #Movimiento perpetuo de los enemigos
 	if position.distance_to(target_world_pos) < 4:
 		path_index += 1
 
-func take_damage(amount):
-  #Método para quitar daño, lo tendrán todos los enemigos.
-	health -= amount
+func take_damage(amount: float, damage_type: String):
+	var resistance = 0.0
+	
+	match damage_type:
+		"arrow":
+			resistance = arrowResistance
+		"magic":
+			resistance = magicResistance
+		"artillery":
+			resistance = artilleryResistance
+		_:
+			print("⚠️ Tipo de daño desconocido:", damage_type)
+
+	# Aplica el daño considerando la resistencia. Ej: resistencia 30 ⇒ se recibe 70%
+	var final_damage = amount * (1.0 - resistance / 100.0)
+	health -= final_damage
+
+	# print("💢 Recibido:", final_damage, "de", amount, "por", damage_type, "| HP restante:", health)
+
 	if health <= 0:
-		emit_signal("died")  # Para algoritmo genético: notificar muerte
+		emit_signal("died")
 		queue_free()
-		return
