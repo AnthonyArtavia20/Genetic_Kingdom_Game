@@ -15,6 +15,8 @@ extends Node2D
 @onready var lblFitness      = get_node("UI/CanvasLayer/PanelStats/VBoxContainer/Label (Fitness promedio)")
 @onready var lblNiveles      = get_node("UI/CanvasLayer/PanelStats/VBoxContainer/Label (Cantidad de niveles torres)")
 @onready var lblMutaciones   = get_node("UI/CanvasLayer/PanelStats/VBoxContainer/Label (Porcentaje mutaciones)")
+@onready var lblGold         = get_node("UI/CanvasLayer/PanelTowers/VBoxContainer/Label (Display_Gold)")
+@onready var lblBridgeLife   = get_node("UI/CanvasLayer/PanelTowers/VBoxContainer/Label (Bridge_Life)")
 
 #Escenas de enemigos
 @onready var ogro_scene = preload("res://Enemigos/Ogro/Ogro.tscn")
@@ -28,7 +30,7 @@ var buy_archer_button: Button
 var buy_mage_button: Button
 var buy_artillery_button: Button
 
-var current_gold = 10000
+var current_gold = 1200
 var selected_tower_scene: PackedScene = null
 var tower_cost = 0
 
@@ -41,7 +43,10 @@ var wave_ended = false
 var next_generation = []
 var dead_enemies_data = []
 
+var bridge_life = 30
+
 func _ready():
+	
 	spawn_timer.timeout.connect(Callable(self, "_on_spawn_timeout"))
 	wave_timer.timeout.connect(Callable(self, "_on_wave_delay_timeout"))
 	genetic_manager.connect("generation_ready", Callable(self, "_on_generation_ready"))
@@ -70,6 +75,10 @@ func _ready():
 				pathfinder.set_obstacle(tile_pos, false)
 
 	start_next_wave()
+	
+func _process(delta):
+	lblGold.text = "Current Gold: %.2f" % float(current_gold)
+	lblBridgeLife.text = "Bridge Life: %d" % int(bridge_life)
 
 func start_next_wave():
 	spawn_timer.stop()
@@ -306,3 +315,8 @@ func _unhandled_input(event):
 				print("❌ No tienes suficiente oro.")
 		else:
 			print("⛔ No se puede construir aquí. Celda inválida.")
+			
+func bridge_hit():
+	bridge_life -= 1
+	if bridge_life == 0:
+		get_tree().paused = true

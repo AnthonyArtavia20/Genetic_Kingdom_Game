@@ -66,7 +66,6 @@ func _process(delta):
 			print("🚀 Disparando a:", target.name)
 			fire()
 			fire_timer = fire_rate
-			current_ammo -= 1
 
 			# Si se acaba la munición y estaba en modo especial, se termina la habilidad
 			if is_special_active and current_ammo == 0:
@@ -102,10 +101,6 @@ func get_new_target():
 			print("🎯 Nuevo objetivo:", best_target.name, "con resistencia:", lowest_resistance)
 		target = best_target
 		try_activate_special()
-
-
-
-
 
 func fire():
 	if not target or not is_instance_valid(target):
