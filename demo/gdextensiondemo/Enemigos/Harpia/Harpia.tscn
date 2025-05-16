@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://k7mv148cftjq"]
+[gd_scene load_steps=11 format=3 uid="uid://k7mv148cftjq"]
 
 [ext_resource type="Script" uid="uid://bhwxd0754vxap" path="res://Enemigos/Harpia/harpia.gd" id="1_5l6k4"]
 [ext_resource type="Texture2D" uid="uid://bpqbnhqiy1ygq" path="res://sprites/Enemies/Harpy/HarpySpriteSheet(50x57).png" id="1_u77r2"]
@@ -53,7 +53,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_5l6k4"]
+radius = 22.0
+
+[node name="Harpy" type="CharacterBody2D" groups=["Enemigo"]]
+collision_mask = 0
 script = ExtResource("1_5l6k4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -61,3 +65,6 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_glxyw")
 frame = 2
 frame_progress = 0.966469
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5l6k4")
