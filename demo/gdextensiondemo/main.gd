@@ -93,8 +93,8 @@ func start_next_wave():
 
 	lblGeneraciones.text = "Oleada: %d" % current_wave
 	lblEliminados.text   = "Eliminados: 0"
-	lblFitness.text      = "Fitness: -"
-	lblMutaciones.text   = "Mutaciones: 50%"
+	#lblFitness.text      = "Fitness: -"
+	lblMutaciones.text   = "Mutaciones: 100%"
 
 	print("🟢 Iniciando oleada %d" % current_wave)
 
@@ -125,7 +125,7 @@ func start_next_wave():
 			enemy.magicResistance = dict.get("magic_res", 0.0)
 			enemy.artilleryResistance = dict.get("artillery_res", 0.0)
 			enemy.oroADropear = dict.get("gold", 10.0)
-			enemy.genes = dict.duplicate(true)  # Guardar los genes exactos
+			enemy.genes = dict.duplicate(true)
 
 			enemies_to_spawn.append(enemy)
 
@@ -242,10 +242,10 @@ func _end_wave():
 	wave_timer.start(2.0)
 
 func _on_generation_ready(new_population):
-	print("✅ Se recibió nueva generación con %d individuos" % new_population.size())
+	print("Se recibió nueva generación con %d individuos" % new_population.size())
 
 	if new_population.is_empty():
-		print("⚠️ La nueva generación está vacía. No se puede continuar.")
+		print("a nueva generación está vacía. No se puede continuar.")
 		return
 
 	next_generation = new_population
@@ -257,14 +257,18 @@ func _on_generation_ready(new_population):
 	for d in new_population:
 		var t = float(d.get("health", 0))  # get() evita errores si falta la clave
 		var g = float(d.get("gold", 0))
-		var f = 0.5 * (t / tau_max) + 0.5 * (g / g_max)
-		total_fitness += f
-		print("  ↪︎ Individuo - salud:%.2f oro:%.2f fitness:%.10f" % [t, g, f])
+		var fitness = 0.5 * ((tau_max - t) / tau_max) + 0.5 * (g / g_max)
+		total_fitness += fitness
+		print("  ↪︎ Individuo - salud:%.2f oro:%.2f fitness:%.10f" % [t, g, fitness])
+		print("↪︎ Tipo generado: ", d.get("type"), " | oro: ", d.get("gold"))
+
 
 	var avg_fitness = total_fitness / new_population.size()
 	lblFitness.text = "Fitness: %.3f" % avg_fitness
 	lblMutaciones.text = "Mutaciones: 50%"
-
+	
+	# Espera 0.1 segundos antes de continuar con la siguiente oleada
+	await get_tree().create_timer(0.1).timeout
 	start_next_wave()
 	
 func _on_buy_archer_pressed():
