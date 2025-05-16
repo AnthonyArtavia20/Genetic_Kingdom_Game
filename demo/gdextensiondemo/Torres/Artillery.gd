@@ -74,8 +74,6 @@ func _process(delta):
 			is_reloading = true
 			reload_timer = reload_time
 
-
-		
 func get_new_target():
 	var best_target = null
 	var lowest_resistance = 101  # Un valor mayor al máximo esperado
@@ -135,8 +133,6 @@ func fire():
 
 	get_tree().root.get_node("Main").add_child(p)
 
-
-
 func upgrade():
 	if tier < 3:
 		var cost = upgrade_costs[tier - 1]
@@ -147,10 +143,14 @@ func upgrade():
 			update_fire_rate()
 			update_anim_idle()
 			set_ammo_by_tier()
+			if tier == 2:
+				main.level_two_towers += 1
 			if tier < 3:
 				label.text = "Mejorar a Tier %d - %dG" % [tier + 1, upgrade_costs[tier - 1]]
 			else:
 				menu.visible = false
+		if tier == 3:
+			main.level_three_towers += 1
 
 func update_fire_rate():
 	match tier:

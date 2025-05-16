@@ -36,8 +36,6 @@ func _ready():
 	$UpgradeMenu/VBoxContainer/Button.pressed.connect(upgrade)
 	detection_area.body_exited.connect(_on_body_exited)
 
-	
-
 func _process(delta):
 	fire_timer -= delta
 
@@ -51,7 +49,6 @@ func _process(delta):
 		if fire_timer <= 0:
 			fire()
 			fire_timer = fire_rate
-
 
 func get_new_target():
 	var best_target = null
@@ -73,8 +70,6 @@ func get_new_target():
 		if not special_ready and cooldown_timer <= 0.0 and randf() < special_chance:
 			print("🔥 Mage habilidad especial ACTIVADA")
 			special_ready = true
-
-
 
 func fire():
 	if not target or not is_instance_valid(target):
@@ -108,8 +103,6 @@ func fire():
 	print("🚀 Proyectil creado con daño:", p.damage, "y tipo:", p.damage_type)
 	get_tree().root.get_node("Main").add_child(p)
 
-
-
 func _on_click(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		menu.visible = !menu.visible
@@ -123,10 +116,14 @@ func upgrade():
 			tier += 1
 			sprite.texture = load(sprite_paths[tier - 1])
 			update_fire_rate()
+			if tier == 2:
+				main.level_two_towers += 1
 			if tier < 3:
 				label.text = "Mejorar a Tier %d - %dG" % [tier + 1, upgrade_costs[tier - 1]]
 			else:
 				menu.visible = false
+		if tier == 3:
+			main.level_three_towers += 1
 
 func _on_body_exited(body):
 	if body == target:

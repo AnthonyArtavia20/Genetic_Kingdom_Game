@@ -146,10 +146,14 @@ func upgrade():
 			sprite.texture = load(sprite_paths[tier - 1])
 			fire_rate = 0.5
 			set_ammo_by_tier()
+			if tier == 2:
+				main.level_two_towers += 1
 			if tier < 3:
 				label.text = "Mejorar a Tier %d - %dG" % [tier + 1, upgrade_costs[tier - 1]]
 			else:
 				menu.visible = false
+		if tier == 3:
+			main.level_three_towers += 1
 				
 func _on_body_exited(body):
 	if body == target:

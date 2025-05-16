@@ -194,16 +194,31 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
 theme_override_fonts/font = ExtResource("5_k1l61")
 theme_override_font_sizes/font_size = 0
-text = "Cantidades de niveles por torre:
-Nivel 1:
-
-NIvel 2:
-
-NIvel 3:
-"
+text = "Cantidades de niveles por torre:"
 
 [node name="Panel5" type="Panel" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
+
+[node name="TowersLevelOne" type="Label" parent="PanelStats/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+text = "
+Nivel 1: "
+
+[node name="TowersLevelTwo" type="Label" parent="PanelStats/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+text = "
+Nivel 2:"
+
+[node name="TowersLevelThree" type="Label" parent="PanelStats/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+text = "
+Nivel 3:"
 
 [node name="Label (Porcentaje mutaciones)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2

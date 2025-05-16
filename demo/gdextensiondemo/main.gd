@@ -17,6 +17,9 @@ extends Node2D
 @onready var lblMutaciones   = get_node("UI/CanvasLayer/PanelStats/VBoxContainer/Label (Porcentaje mutaciones)")
 @onready var lblGold         = get_node("UI/CanvasLayer/PanelTowers/VBoxContainer/Label (Display_Gold)")
 @onready var lblBridgeLife   = get_node("UI/CanvasLayer/PanelTowers/VBoxContainer/Label (Bridge_Life)")
+@onready var lblTowersLevelOne = get_node("UI/CanvasLayer/PanelStats/VBoxContainer/TowersLevelOne")
+@onready var lblTowersLevelTwo = get_node("UI/CanvasLayer/PanelStats/VBoxContainer/TowersLevelTwo")
+@onready var lblTowersLevelThree = get_node("UI/CanvasLayer/PanelStats/VBoxContainer/TowersLevelThree")
 
 #Escenas de enemigos
 @onready var ogro_scene = preload("res://Enemigos/Ogro/Ogro.tscn")
@@ -31,6 +34,10 @@ var buy_mage_button: Button
 var buy_artillery_button: Button
 
 var current_gold = 1200
+var level_one_towers = 0
+var level_two_towers = 0
+var level_three_towers = 0
+
 var selected_tower_scene: PackedScene = null
 var tower_cost = 0
 
@@ -79,6 +86,9 @@ func _ready():
 func _process(delta):
 	lblGold.text = "Current Gold: %.2f" % float(current_gold)
 	lblBridgeLife.text = "Bridge Life: %d" % int(bridge_life)
+	lblTowersLevelOne.text = "Nivel 1: %d" % int(level_one_towers)
+	lblTowersLevelTwo.text = "Nivel 2: %d" % int(level_two_towers)
+	lblTowersLevelThree.text = "Nivel 3: %d" % int(level_three_towers)
 
 func start_next_wave():
 	spawn_timer.stop()
@@ -93,7 +103,6 @@ func start_next_wave():
 
 	lblGeneraciones.text = "Oleada: %d" % current_wave
 	lblEliminados.text   = "Eliminados: 0"
-	#lblFitness.text      = "Fitness: -"
 	lblMutaciones.text   = "Mutaciones: 100%"
 
 	print("🟢 Iniciando oleada %d" % current_wave)
@@ -279,7 +288,7 @@ func _on_buy_mage_pressed():
 
 func _on_buy_artillery_pressed():
 	select_tower_to_place("res://Torres/Artillery.tscn", 450)
-
+	
 func select_tower_to_place(scene_path: String, cost: int):
 	selected_tower_scene = load(scene_path)
 	tower_cost = cost
@@ -311,6 +320,7 @@ func _unhandled_input(event):
 				current_gold -= tower_cost
 				selected_tower_scene = null
 				print("✅ Torre colocada correctamente en posición exacta:", world_pos)
+				level_one_towers+=1 # Puesto que siempre que se coloca una torre, esta es de nivel 1.
 			else:
 				print("❌ No tienes suficiente oro.")
 		else:
