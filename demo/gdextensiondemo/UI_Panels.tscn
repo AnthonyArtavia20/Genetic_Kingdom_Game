@@ -1,9 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdv1kh8a3hdy7"]
+[gd_scene load_steps=10 format=3 uid="uid://bdv1kh8a3hdy7"]
 
 [ext_resource type="Texture2D" uid="uid://p2iuw1siewog" path="res://sprites/Towers/Archer_Tower/Archer_Tower3.png" id="1_j0qjj"]
 [ext_resource type="Texture2D" uid="uid://cehv1qpqobamg" path="res://sprites/others/buy_button.png" id="2_vsrhp"]
 [ext_resource type="Texture2D" uid="uid://cmjjb0nobvbld" path="res://sprites/Towers/Mage_Tower/Mage_Tower3.png" id="3_vsrhp"]
 [ext_resource type="Texture2D" uid="uid://dt3u3eet8ecac" path="res://sprites/Towers/Catapult_Tower/Tier3/Right_Catapult1.png" id="4_sf2pk"]
+[ext_resource type="FontFile" uid="uid://3f6xc64sqqw5" path="res://Font/alagard.ttf" id="5_k1l61"]
+[ext_resource type="Texture2D" uid="uid://daw4soo47dsk4" path="res://sprites/Logo.png" id="6_64415"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64415"]
+bg_color = Color(0.403922, 0.258824, 0.133333, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.772549, 0.580392, 0.00392157, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sf2pk"]
+bg_color = Color(0.403922, 0.258824, 0.133333, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.772549, 0.580392, 0.00392157, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1l61"]
+bg_color = Color(0.0313726, 0.698039, 0.596078, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.772549, 0.580392, 0.00392157, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -15,6 +55,7 @@ anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_64415")
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelTowers"]
@@ -22,6 +63,8 @@ layout_mode = 2
 
 [node name="Label (Torres Disponibles)" type="Label" parent="PanelTowers/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
 text = "Comprar torres:"
 
 [node name="TorreContainer1" type="VBoxContainer" parent="PanelTowers/VBoxContainer"]
@@ -34,6 +77,8 @@ stretch_mode = 5
 
 [node name="Label (Arquero - Precio)" type="Label" parent="PanelTowers/VBoxContainer/TorreContainer1"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
 text = "Torre Arquera - 150 Oro"
 horizontal_alignment = 1
 
@@ -52,7 +97,9 @@ stretch_mode = 5
 
 [node name="Label (Mago - precio)" type="Label" parent="PanelTowers/VBoxContainer/TorreContainer2"]
 layout_mode = 2
-text = "Torre de mago - 300 Oro"
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+text = "Torre de mago - 250 Oro"
 horizontal_alignment = 1
 
 [node name="Button_Mage" type="Button" parent="PanelTowers/VBoxContainer/TorreContainer2"]
@@ -70,7 +117,9 @@ stretch_mode = 5
 
 [node name="Label (Artillero - precio)" type="Label" parent="PanelTowers/VBoxContainer/TorreContainer3"]
 layout_mode = 2
-text = "Torre Artillera - 1000 Oro"
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+text = "Torre Artillera - 450 Oro"
 horizontal_alignment = 1
 
 [node name="Button_Artillery" type="Button" parent="PanelTowers/VBoxContainer/TorreContainer3"]
@@ -79,51 +128,82 @@ icon = ExtResource("2_vsrhp")
 icon_alignment = 1
 
 [node name="PanelStats" type="PanelContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 363.0
+offset_bottom = 645.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_sf2pk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelStats"]
 layout_mode = 2
 
 [node name="Label (estadisticas)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+theme_override_font_sizes/font_size = 0
 text = "Estadisticas generales de la partida:                   
-(Img de stats)
-
 "
+justification_flags = 35
+text_direction = 1
 
 [node name="Label (Generaciones transcurridas)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
-text = "Generaciones / Oleadas transcurridas:
-"
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+theme_override_font_sizes/font_size = 0
+text = "Generaciones / Oleadas transcurridas:"
+
+[node name="Panel2" type="Panel" parent="PanelStats/VBoxContainer"]
+layout_mode = 2
 
 [node name="Label (Enemigos eliminados)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+theme_override_font_sizes/font_size = 0
 text = "Cantidad de enemigos eliminados:
 "
 
+[node name="Panel" type="Panel" parent="PanelStats/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k1l61")
+
 [node name="Label (Fitness promedio)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
-text = "Fitness promedio: 
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+theme_override_font_sizes/font_size = 0
+text = "Fitness promedio: "
 
-
-
-
-
-
-"
+[node name="Panel4" type="Panel" parent="PanelStats/VBoxContainer"]
+layout_mode = 2
 
 [node name="Label (Cantidad de niveles torres)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+theme_override_font_sizes/font_size = 0
 text = "Cantidades de niveles por torre:
 Nivel 1:
 
 NIvel 2:
 
 NIvel 3:
-
 "
+
+[node name="Panel5" type="Panel" parent="PanelStats/VBoxContainer"]
+layout_mode = 2
 
 [node name="Label (Porcentaje mutaciones)" type="Label" parent="PanelStats/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("5_k1l61")
+theme_override_font_sizes/font_size = 0
 text = "Porcentaje  de mutaciones: 0%"
+
+[node name="Panel6" type="Panel" parent="PanelStats/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelStats/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_64415")
+expand_mode = 4
