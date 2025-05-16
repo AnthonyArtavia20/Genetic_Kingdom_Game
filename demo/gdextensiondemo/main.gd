@@ -53,7 +53,7 @@ var dead_enemies_data = []
 var bridge_life = 30
 
 func _ready():
-	
+	randomize()
 	spawn_timer.timeout.connect(Callable(self, "_on_spawn_timeout"))
 	wave_timer.timeout.connect(Callable(self, "_on_wave_delay_timeout"))
 	genetic_manager.connect("generation_ready", Callable(self, "_on_generation_ready"))
@@ -84,8 +84,8 @@ func _ready():
 	start_next_wave()
 	
 func _process(delta):
-	lblGold.text = "Current Gold: %.2f" % float(current_gold)
-	lblBridgeLife.text = "Bridge Life: %d" % int(bridge_life)
+	lblGold.text = "💰 Current Gold: %.2f" % float(current_gold)
+	lblBridgeLife.text = "❤️ Bridge Life: %d" % int(bridge_life)
 	lblTowersLevelOne.text = "Nivel 1: %d" % int(level_one_towers)
 	lblTowersLevelTwo.text = "Nivel 2: %d" % int(level_two_towers)
 	lblTowersLevelThree.text = "Nivel 3: %d" % int(level_three_towers)
@@ -105,9 +105,8 @@ func start_next_wave():
 	lblEliminados.text   = "Eliminados: 0"
 	lblMutaciones.text   = "Mutaciones: 100%"
 
-	print("🟢 Iniciando oleada %d" % current_wave)
+	print("🟢-> Iniciando oleada %d" % current_wave)
 
-	var wave_size = current_wave * 5
 	if next_generation.is_empty():
 		enemies_to_spawn = generate_wave_list(current_wave)
 	else:
@@ -240,11 +239,13 @@ func _end_wave():
 		print("  -> tiempo:", d["lifetime"], " oro:", d["gold"])
 
 	dead_enemies_data.clear()
-
+	
+	var wave_size = randi_range(3, 7)
 	genetic_manager._on_wave_completed({
 		"lived_times": lived_times,
 		"gold_drops": gold_drops,
-		"original_data": original_data
+		"original_data": original_data,
+		"next_wave_size": wave_size
 	})
 
 	print("⏳ Esperando generación genética para oleada %d..." % current_wave)

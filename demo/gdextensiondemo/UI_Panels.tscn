@@ -130,14 +130,16 @@ icon_alignment = 1
 [node name="Label (Display_Gold)" type="Label" parent="PanelTowers/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_font_sizes/font_size = 22
 text = "
-Current Gold: "
+💰 Current Gold: "
 
 [node name="Label (Bridge_Life)" type="Label" parent="PanelTowers/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.772549, 0.580392, 0.00392157, 1)
+theme_override_font_sizes/font_size = 24
 text = "
-Bridge_Life: "
+❤️ Bridge_Life: "
 
 [node name="PanelStats" type="PanelContainer" parent="."]
 offset_right = 363.0

@@ -1,6 +1,8 @@
 #include "GeneticManager.h"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
+#include <random>
+using namespace std;
 
 using namespace godot;
 
@@ -38,7 +40,7 @@ void GeneticManager::_on_wave_completed(const Dictionary &stats) {
     fitnesses.reserve(count);
 
     for (int i = 0; i < count; ++i) {
-        Dictionary d = original_data[i];  // ✅ Tomar datos reales
+        Dictionary d = original_data[i];
 
         GeneticChromosome chrom;
         chrom.health        = d["health"];
@@ -56,9 +58,16 @@ void GeneticManager::_on_wave_completed(const Dictionary &stats) {
 
     // Se Reinicializar el GA según el tamaño de la oleada
     if (ga != nullptr) delete ga;
-    ga = new GeneticAlgorithm(count, 1.0f, 6.0f); // Mutación del 100%, sigma más alto
 
+    // Crear un motor de números aleatorios y una distribución
+    std::random_device rd;
+    std::mt19937 gen(rd());  // Generador
+    std::uniform_int_distribution<int> dist(3, 7);  // Distribución
 
+    int desired_size = dist(gen);  // Usar el generador correctamente
+
+    // Usar el valor generado
+    ga = new GeneticAlgorithm(desired_size, 1.0f, 6.0f);
     auto next_gen = ga->run_generation(parents, fitnesses);
 
     Array out;
@@ -72,15 +81,16 @@ void GeneticManager::_on_wave_completed(const Dictionary &stats) {
         d["gold"]          = c.gold;
 
         // Inferencia de tipo a partir del oro esto cambia los enemigos que se generan cada oleada.
-        if (c.gold >= 40.0f) {
+        if (c.gold >= 30.0f) {
             d["type"] = "merc";
-        } else if (c.gold >= 30.0f) {
-            d["type"] = "harpia";
         } else if (c.gold >= 20.0f) {
-            d["type"] = "elfo";
+            d["type"] = "harpia";
+        } else if (c.gold >= 12.0f) {
+            d["type"] = "elfo"; // Elfos entre 12 y 19.9
         } else {
-            d["type"] = "ogro";
+            d["type"] = "ogro"; // Todo lo demás
         }
+
 
         out.append(d);
     }
