@@ -33,6 +33,7 @@ func _ready():
 	if path.size() > 0: #verifica si se llega al final.
 		var tilemap = get_parent().get_node("TileMap/GroundLayer")
 		position = tilemap.to_global(tilemap.map_to_local(path[0]))
+		
 
   # Guardar el tiempo de nacimiento para fitness
 	birth_time = Time.get_ticks_msec()
@@ -40,6 +41,7 @@ func _ready():
 func _process(delta): #Movimiento perpetuo de los enemigos
 	#Movimiento estandar para cada tipo de enemigo:
 	if path_index >= path.size(): #Solo si se llega a que la última celda sea literalmente la meta, entonces quitamos de la lista a ese enemigo.
+		get_tree().root.get_node("Main").bridge_hit()
 		emit_signal("died")  # Notifica a main.gd que este enemigo "murió" al llegar al final
 		queue_free() #Libera de la lista a ese enemigo.
 		return
@@ -74,3 +76,6 @@ func take_damage(amount: float, damage_type: String):
 	if health <= 0:
 		emit_signal("died")
 		queue_free()
+
+func damage_bridge():
+	return 1
